@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Auth} />
-        <Route path="/home" component={Home} />
+        <Route path="/valeed" component={Home} />
       </Switch>
     </BrowserRouter>
   );
