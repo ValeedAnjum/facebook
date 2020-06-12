@@ -21,7 +21,7 @@ class UserPosts extends Component {
     }
     lazyLoader =  async () => {
         const scroolIsAtBottom = (document.documentElement.scrollHeight - window.innerHeight) === window.scrollY;
-        if(scroolIsAtBottom && this.state.loading){
+        if(scroolIsAtBottom && this.state.loading && this.state.morePosts){
             this.setState({loading:false});
             await this.loadNextPost();
             this.setState({loading:true});
@@ -44,6 +44,9 @@ class UserPosts extends Component {
                 ]
             });
         }
+        if(next && next.docs && next.docs.length === 0){
+            this.setState({morePosts:false});
+        }
         // console.log(this.state.loadedPosts);
     }
     render() {
@@ -52,7 +55,7 @@ class UserPosts extends Component {
         const {loadedPosts} = this.state;
         console.log('LP',loadedPosts);
         return (
-            <div className="user-posts" onClick={() => this.lazyLoader()}>
+            <div className="user-posts" >
                 <h4 className="not-fully-responsive">This is not responsive version</h4>
                 <div className="create-post">
                     <h4>Create Post</h4>
@@ -98,15 +101,15 @@ class UserPosts extends Component {
                     {(loadedPosts.length >= 1)
                         ? loadedPosts.map(post => {
                             return <Fragment key={post.id}>
-                                <SinglePost/>
+                                <SinglePost post={post} />
                             </Fragment>
                         })
 
                         : <LaodingPosts/>
 }
-                    {(LaodingPosts.length === 0)
+                    {(LaodingPosts.length === 0 && this.state.morePosts)
                         ? <LaodingPosts/>
-                        : null
+                        : <h4>There are no more posts</h4>
 }
                 </div>
             </div>

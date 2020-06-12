@@ -1,14 +1,16 @@
 import React from 'react'
 
-const SinglePost = () => {
+const SinglePost = ({post}) => {
+    const { contenturl, id, likes, name, shared, time, userimage } = post;
     return (
         <div className="post">
             <div className="user-data">
                 <div className="user-image">
-                    <img src="style/images/user.jpg" alt="user-img"/>
+                    {/* <img src="style/images/user.jpg" alt="user-img"/> */}
+                    <img src={userimage} alt="user-img"/>
                 </div>
                 <div className="name-and-time">
-                    <span>Valeed Anjum</span>
+                    <span>{name}</span>
                     <span>
                         5 hrs
                         <i className="fas fa-globe-asia"></i>
@@ -79,7 +81,8 @@ const SinglePost = () => {
                 </div>
             </div>
             <div className="user-content">
-                <img src="style/images/user.jpg" alt="post-img"/>
+                {/* <img src="style/images/user.jpg" alt="post-img"/> */}
+                <img src={contenturl} alt="post-img"/>
             </div>
             <div className="post-buttons">
                 <div className="button-container">
