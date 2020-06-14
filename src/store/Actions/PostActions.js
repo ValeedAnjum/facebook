@@ -1,4 +1,3 @@
-import {getFirestore} from "redux-firestore"
 import firebase from '../../config/config';
 
 export const fetchPost = lastPostId => {
@@ -10,8 +9,8 @@ export const fetchPost = lastPostId => {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
             lastItem
-                ? (query = Ref.orderBy('time').startAfter(lastItem).limit(2))
-                : (query = Ref.orderBy('time').limit(2));
+                ? (query = Ref.orderBy('time').startAfter(lastItem).limit(3))
+                : (query = Ref.orderBy('time').limit(3));
             dispatch({type:'FETCH_POST_START'});
             let querySnap = await query.get();
             if(querySnap.docs.length === 0) {

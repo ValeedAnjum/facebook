@@ -851,10 +851,10 @@ body {
     cursor: pointer;
     font-size: x-large;
 }
-.main .posts-container  .post-loading-spinner-container {
+.main .posts-container .post-loading-spinner-container {
     position: relative;
 }
-.main .posts-container  .post-loading-spinner-container .lds-ring {
+.main .posts-container .post-loading-spinner-container .lds-ring {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1062,4 +1062,29 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.upload-pictures-profile {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 95%;
+    height: 95%;
+    background-color: white;
+    z-index: 76766788;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+.upload-pictures-profile .button-container button {
+    border: none;
+    width: 50%;
+    outline: none;
+}
+
+.upload-pictures-profile .chose-random-picture {
+    display: none;
+}
+.upload-pictures-profile .select-image {
+    display: none;
 }

@@ -2,14 +2,14 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { logOut } from '../../store/Actions/UserActions'
 import Navbar from './Navbar/Navbar';
 import UserHome from './UserHome/UserHome';
 
-const Home = ({auth,logOut}) => {
+const Home = ({auth}) => {
     if(!auth){
         return <Redirect to="/" />
     }
+    
     return (
         <BrowserRouter>
             <Navbar />
@@ -27,9 +27,6 @@ const mapState = state => {
         auth:state.firebase.auth.uid
     }
 }
-const mapDispatch = dispatch => {
-    return {
-        logOut:() => dispatch(logOut())
-    }
-}
-export default connect(mapState,mapDispatch)(Home);
+
+
+export default connect(mapState)(Home);

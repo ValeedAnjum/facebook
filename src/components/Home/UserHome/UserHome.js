@@ -1,42 +1,33 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import UserNavbar from './UserNavbar';
 import UserPosts from './UserPosts';
 import ListOfOnlineUsers from './ListOfOnlineUsers';
+import ModelManager from '../../Models/ModelManager';
 
-const UserHome = () => {
-    
+const UserHome = ( { userProfileData:{photoUrl} } ) => {
+
+    console.log(photoUrl);
     return (
-        <section className="main">
-            <div className="user-navbar-posts">
-                <UserNavbar/>
-                <UserPosts/>
-            </div>
-            <div className="online-user">
-                <ListOfOnlineUsers/>
-            </div>
-        </section>
+        <Fragment>
+            <ModelManager />
+            <section className="main">
+                <div className="user-navbar-posts">
+                    <UserNavbar/>
+                    <UserPosts/>
+                </div>
+                <div className="online-user">
+                    <ListOfOnlineUsers/>
+                </div>
+            </section>
+        </Fragment>
     )
 }
 
 const mapState = state => {
-    // console.log(state);
     return {
-        posts:state.firestore.ordered.posts
+        userProfileData:state.firebase.profile
     }
 }
-const mapDispatch = dispatch => {
-    return {
 
-    }
-}
-export default compose(
-    connect(mapState),
-    firestoreConnect(props => {
-        return [{
-            collection:'posts'
-        }]
-    })
-)(UserHome);
+export default connect(mapState)(UserHome);

@@ -1,4 +1,4 @@
-import React, {useState, Fragment, useEffect} from 'react'
+import React, {useState, Fragment} from 'react'
 import FriendListNotifictaion from './FriendListNotifictaion'
 import MessageListNotifictaion from './MessageListNotifictaion';
 import NotificationList from './NotificationList';

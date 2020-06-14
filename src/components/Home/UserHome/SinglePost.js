@@ -1,7 +1,8 @@
 import React from 'react'
 
 const SinglePost = ({post}) => {
-    const { contenturl, id, likes, name, shared, time, userimage } = post;
+    const { contenturl, name, userimage } = post;
+    // const { contenturl, id, likes, name, shared, time, userimage } = post;
     return (
         <div className="post">
             <div className="user-data">
