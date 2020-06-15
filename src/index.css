@@ -1064,6 +1064,7 @@ body {
     }
 }
 
+/* Model Upload Picture  */
 .upload-pictures-profile {
     position: fixed;
     top: 50%;
@@ -1087,4 +1088,21 @@ body {
 }
 .upload-pictures-profile .select-image {
     display: none;
+}
+.upload-pictures-profile .upload-picture img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.upload-pictures-profile .upload-picture button {
+    position: absolute;
+    top: 77%;
+    height: 64px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.upload-pictures-profile .upload-picture button:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
 }

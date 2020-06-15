@@ -29,7 +29,7 @@ const store = createStore(RootReducer, compose(
 // // more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-// ReactDOM.render(<h1>Loading</h1>, document.getElementById('root'));
+ReactDOM.render(<h1>Loading</h1>, document.getElementById('root'));
 store.firebaseAuthIsReady.then(() => {
     ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
     serviceWorker.unregister();

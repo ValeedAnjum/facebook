@@ -1,5 +1,5 @@
 const intState = {
-    ModelName:'UploadProfilePicture'
+    ModelName:null
 }
 
 export const ModelReducer = ( state = intState , action ) => {

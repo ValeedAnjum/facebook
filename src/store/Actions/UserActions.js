@@ -1,5 +1,4 @@
 
-
 export const register = cred => {
     return  async (dispatch,getState,{getFirebase,getFirestore}) => {
         const firebase = getFirebase();
@@ -37,5 +36,16 @@ export const logOut = () => {
         } catch (err) {
             console.log(err.message);
         }
+    }
+}
+
+export const uploadProfilePicture = () => {
+    return (dispatch,getState,{getFirebase,getFirestore}) => {
+        const firebase = getFirebase();
+        var storageRef =  firebase.storage();
+        console.log('Anjum'); 
+        // const firebase = getFirebase();
+        // var storageRef = firebase.storage().ref(new Date().toString());
+        // console.log('uploading');
     }
 }

@@ -1,7 +1,7 @@
 import React , { useState } from 'react';
 import Resizer from 'react-image-file-resizer';
 
-const UploadProfilePicture = () => {
+const UploadProfilePicture = ({uploadProfilePicture}) => {
     const [file, setfile] = useState(null);
     
     const fileChangedHandler  = event => {
@@ -42,6 +42,7 @@ const UploadProfilePicture = () => {
                     <input type='file' onChange={fileChangedHandler} className="select-image" />
                 </form>
                 { file && <img src={file} alt="not available" />}
+                { file && <button onClick={() => uploadProfilePicture(file)}>Upload Picture</button>}
             </div>
             
         </div>
