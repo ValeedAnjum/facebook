@@ -20,7 +20,6 @@ export const logIn = cred =>  {
         const {email, password } = cred;
         try {
             const res = await firebase.auth().signInWithEmailAndPassword(email,password);
-            console.log(res);
         } catch (err) {
             console.log(err.message);
         }

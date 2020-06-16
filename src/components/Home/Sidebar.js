@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserNavbar = () => {
+const Sidebar = () => {
     return (
         <div className="user-navbar">
             <div className="user-itself">
@@ -49,4 +49,4 @@ const UserNavbar = () => {
     )
 }
 
-export default UserNavbar
+export default Sidebar

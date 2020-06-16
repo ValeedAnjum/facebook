@@ -1,6 +1,6 @@
 
 
-export const OpenUploadProfilePicture = (dispatch,geState) => {
+export const OpenUploadProfilePicture = () => (dispatch,geState) => {
     dispatch({type:'UploadProfilePicture'});
 }
 

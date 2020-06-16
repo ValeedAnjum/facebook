@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 
 const Auth = ({auth}) => {
     if(auth){
-        return <Redirect to="/valeed"/>
+        return <Redirect to="/" />
     }
     return (
         <Fragment>

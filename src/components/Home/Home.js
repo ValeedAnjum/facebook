@@ -1,32 +1,50 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux'
+import React, { Fragment, useEffect } from 'react'
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import Sidebar from './Sidebar';
+import Posts from './Posts';
+import ListOfOnlineUsers from './ListOfOnlineUsers';
 import Navbar from './Navbar/Navbar';
-import UserHome from './UserHome/UserHome';
+import { OpenUploadProfilePicture } from '../../store/Actions/ModelActions';
 
-const Home = ({auth}) => {
+const Home = ( { userProfileData:{photoUrl}, auth , OpenUploadProfilePicture} ) => {
+    useEffect(() => {
+        if(photoUrl === "") {
+            OpenUploadProfilePicture();
+        }
+    })
     if(!auth){
-        return <Redirect to="/" />
+        return <Redirect to="/auth" />
     }
-    
+    // if(photoUrl === ""){
+    //     OpenUploadProfilePicture();
+    // }
     return (
-        <BrowserRouter>
+        <Fragment>
+            
             <Navbar />
-            <Switch>
-                <Switch>
-                    <Route path="/valeed" exact component={UserHome} />
-                    {/* <Route path="/valeed/friends" render={() => <h1>friends</h1>} /> */}
-                </Switch>
-            </Switch>
-        </BrowserRouter>
+            <section className="main">
+                <div className="user-navbar-posts">
+                    <Sidebar />
+                    <Posts />
+                </div>
+                <div className="online-user">
+                    <ListOfOnlineUsers/>
+                </div>
+            </section>
+        </Fragment>
     )
 }
+
 const mapState = state => {
     return {
+        userProfileData:state.firebase.profile,
         auth:state.firebase.auth.uid
     }
 }
-
-
-export default connect(mapState)(Home);
+const mapDispatch = dispatch => {
+    return {
+        OpenUploadProfilePicture:() => dispatch(OpenUploadProfilePicture())
+    }
+}
+export default connect(mapState,mapDispatch)(Home);

@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import SinglePost from './SinglePost';
 import LaodingPosts from './LaodingPosts';
-import {fetchPost} from '../../../store/Actions/PostActions';
-import { logOut } from '../../../store/Actions/UserActions';
+import {fetchPost} from '../../store/Actions/PostActions';
+import { logOut } from '../../store/Actions/UserActions';
 
-class UserPosts extends Component {
+class Posts extends Component {
     state = {
         loadedPosts: [],
         morePosts: true,
@@ -21,11 +21,6 @@ class UserPosts extends Component {
         }
     }
     lazyLoader = async() => {
-        // console.log('ScroolHeight',document.documentElement.scrollHeight);
-        // console.log('InnerHight',window.innerHeight);
-        // console.log('ScroolY',window.scrollY);
-        // console.log(document.documentElement.scrollHeight - window.innerHeight-1200);
-        // console.log(window.scrollY);
         const scroolIsAtBottom = (document.documentElement.scrollHeight - window.innerHeight-1200) <= window.scrollY;
         if (scroolIsAtBottom && this.state.loading && this.state.morePosts) {
             this.setState({loading: false});
@@ -36,7 +31,6 @@ class UserPosts extends Component {
     loadNextPost = async() => {
         const {post} = this.props;
         const lastPostId = post && post[post.length - 1].id;
-        // console.log("nextpost");
         const next = await this
             .props
             .fetchPost(lastPostId);
@@ -51,15 +45,13 @@ class UserPosts extends Component {
         if (next && next.docs && next.docs.length === 0) {
             this.setState({morePosts: false});
         }
-        // console.log(this.state.loadedPosts);
     }
     render() {
         window.addEventListener('scroll', this.lazyLoader);
         const {loadedPosts} = this.state;
         const {logOut} = this.props;
-        // console.log('LP',loadedPosts);
         return (
-            <div className="user-posts">
+            <div className="user-posts" onClick={logOut}>
                 <h4 className="not-fully-responsive">This is not responsive version</h4>
                 <div className="create-post">
                     <h4>Create Post</h4>
@@ -132,4 +124,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default compose(connect(mapState, mapDispatch))(UserPosts);
+export default compose(connect(mapState, mapDispatch))(Posts);
