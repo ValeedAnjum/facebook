@@ -39,13 +39,26 @@ export const logOut = () => {
     }
 }
 
-export const uploadProfilePicture = () => {
+export const uploadProfilePicture = file => {
     return (dispatch,getState,{getFirebase,getFirestore}) => {
         const firebase = getFirebase();
-        var storageRef =  firebase.storage();
-        console.log('Anjum'); 
-        // const firebase = getFirebase();
-        // var storageRef = firebase.storage().ref(new Date().toString());
-        // console.log('uploading');
+        const id = firebase.auth().currentUser.uid;
+        var storageRef = firebase.storage().ref(`profile-picture/${id}`);
+        console.log('uploading');
+        var uploadTask = storageRef.putString(file, 'data_url');
+        uploadTask.on('state_changed', function (snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+        }, function (error) {
+            // Handle unsuccessful uploads
+        }, function () {
+            uploadTask
+                .snapshot
+                .ref
+                .getDownloadURL()
+                .then(function (downloadURL) {
+                    console.log('File available at', downloadURL);
+                });
+        })
     }
 }

@@ -1,5 +1,6 @@
-import React , { useState } from 'react';
+import React , { useState, Fragment } from 'react';
 import Resizer from 'react-image-file-resizer';
+import ModelOverlay from './ModelOverlay';
 
 const UploadProfilePicture = ({uploadProfilePicture}) => {
     const [file, setfile] = useState(null);
@@ -32,20 +33,22 @@ const UploadProfilePicture = ({uploadProfilePicture}) => {
         document.getElementsByClassName('select-image')[0].click();
     }
     return (
-        <div className="upload-pictures-profile">
-            <div className="button-container">
-                <button onClick={selectPicture}>Select Picture</button>
-                <button >Chose Random Picture</button>
+        <Fragment>
+            <ModelOverlay />
+            <div className="upload-pictures-profile">
+                <div className="button-container">
+                    <button onClick={selectPicture}>Select Picture</button>
+                    <button >Chose Random Picture</button>
+                </div>
+                <div className="upload-picture">
+                    <form method='POST' encType='multipart/form-data' onSubmit={e => {e.preventDefault()}} >
+                        <input type='file' onChange={fileChangedHandler} className="select-image" />
+                    </form>
+                    { file && <img src={file} alt="not available" />}
+                    { file && <button onClick={() => uploadProfilePicture(file)}>Upload Picture</button>}
+                </div>
             </div>
-            <div className="upload-picture">
-                <form method='POST' encType='multipart/form-data' onSubmit={e => {e.preventDefault()}} >
-                    <input type='file' onChange={fileChangedHandler} className="select-image" />
-                </form>
-                { file && <img src={file} alt="not available" />}
-                { file && <button onClick={() => uploadProfilePicture(file)}>Upload Picture</button>}
-            </div>
-            
-        </div>
+        </Fragment>
     )
 }
 

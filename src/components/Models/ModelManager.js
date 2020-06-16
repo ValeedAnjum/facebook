@@ -6,9 +6,9 @@ import { uploadProfilePicture } from '../../store/Actions/UserActions';
 const ModelManager = ({ModelName,uploadProfilePicture}) => {
     switch (ModelName) {
         case 'UploadProfilePicture':
-            return <h1>UploadProfilePicture</h1>
+            return <UploadProfilePicture uploadProfilePicture={uploadProfilePicture} />
         default:
-            return <UploadProfilePicture uploadProfilePicture={uploadProfilePicture} />;
+            return null;
     }
 }
 
