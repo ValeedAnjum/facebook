@@ -2,7 +2,7 @@ import React , { useState, Fragment } from 'react';
 import Resizer from 'react-image-file-resizer';
 import ModelOverlay from './ModelOverlay';
 
-const UploadProfilePicture = ({uploadProfilePicture}) => {
+const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
     const [file, setfile] = useState(null);
     
     const fileChangedHandler  = event => {
@@ -45,7 +45,7 @@ const UploadProfilePicture = ({uploadProfilePicture}) => {
                         <input type='file' onChange={fileChangedHandler} className="select-image" />
                     </form>
                     { file && <img src={file} alt="not available" />}
-                    { file && <button onClick={() => uploadProfilePicture(file)}>Upload Picture</button>}
+                    { file && <button onClick={() => uploadProfilePicture(file)}>{!uploading ? 'Upload Picture':'Uploading'}</button>}
                 </div>
             </div>
         </Fragment>

@@ -43,20 +43,24 @@ export const uploadProfilePicture = file => {
         const firebase = getFirebase();
         const id = firebase.auth().currentUser.uid;
         var storageRef = firebase.storage().ref(`profile-picture/${id}`);
-        console.log('uploading');
+        // console.log('uploading');
+        dispatch({type:'UploadingStart'});
         var uploadTask = storageRef.putString(file, 'data_url');
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
         }, function (error) {
             // Handle unsuccessful uploads
+            console.log(error);
         }, function () {
             uploadTask
                 .snapshot
                 .ref
                 .getDownloadURL()
                 .then(function (downloadURL) {
-                    console.log('File available at', downloadURL);
+                    dispatch({type:'UploadingEnd'});
+                    dispatch({type:'CloseUploadProfilePicture'});
+                    // firebase.updateProfile({photoURL: downloadURL});
                 });
         })
     }
