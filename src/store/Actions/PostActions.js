@@ -1,8 +1,7 @@
 import firebase from '../../config/config';
 
 export const fetchPost = lastPostId => {
-    return async(dispatch, getState) => {
-        // console.log(lastPostId);
+    return async(dispatch, getState,{getFirebase}) => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
         try {

@@ -50,14 +50,16 @@ class Posts extends Component {
     render() {
         window.addEventListener('scroll', this.lazyLoader);
         const {loadedPosts} = this.state;
-        const {logOut} = this.props;
+        const {logOut , photoUrl} = this.props;
         return (
-            <div className="user-posts" onClick={logOut}>
+            <div className="user-posts">
                 <h4 className="not-fully-responsive">This is not responsive version</h4>
                 <div className="create-post">
                     <h4>Create Post</h4>
                     <div className="user-image-and-content">
-                        <img src="style/images/user.jpg" alt="user-img"/>
+                        {
+                            photoUrl ? <img src={photoUrl} alt="user-img"/>:null
+                        }
                         <input type="text" placeholder="What's on your mind, Valeed?"/>
                     </div>
                     <div className="upload-content">

@@ -1,10 +1,12 @@
 import React from 'react'
 
-const Sidebar = () => {
+const Sidebar = ({photoUrl}) => {
     return (
         <div className="user-navbar">
             <div className="user-itself">
-                <img src="style/images/user.jpg" alt="user-img"/>
+                {
+                    photoUrl ? <img src={photoUrl} alt="user-img"/>:null
+                }
                 <p>Valeed Anjum</p>
             </div>
             <div className="others">

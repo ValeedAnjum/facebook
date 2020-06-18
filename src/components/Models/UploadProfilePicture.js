@@ -32,6 +32,9 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
     const selectPicture = () => {
         document.getElementsByClassName('select-image')[0].click();
     }
+    const uploadProfilePictureLocal = () => {
+        uploadProfilePicture(file);
+    }
     return (
         <Fragment>
             <ModelOverlay />
@@ -45,7 +48,7 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
                         <input type='file' onChange={fileChangedHandler} className="select-image" />
                     </form>
                     { file && <img src={file} alt="not available" />}
-                    { file && <button onClick={() => uploadProfilePicture(file)}>{!uploading ? 'Upload Picture':'Uploading'}</button>}
+                    { file && <button onClick={uploadProfilePictureLocal}>{!uploading ? 'Upload Picture':'Uploading'}</button>}
                 </div>
             </div>
         </Fragment>

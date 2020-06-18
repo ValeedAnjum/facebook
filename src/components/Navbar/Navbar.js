@@ -1,15 +1,19 @@
 import React, {useState, Fragment} from 'react'
+import { connect } from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import MessageListNotifictaion from './MessageListNotifictaion';
 import NotificationList from './NotificationList';
 
-const Navbar = () => {
+const Navbar = ({ auth, profileData:{photoUrl,fname}}) => {
     const [friendNotifictaion,
         setfriendNotifictaion] = useState(false);
     const [messageNotifictaions,
         setMessageNotifictaions] = useState(false);
     const [Notification,
         setNotificationList] = useState(false);
+    if(!auth){
+        return null;
+    }
     return (
         <section className="sec-navbar">
             <nav className="navbar">
@@ -27,8 +31,10 @@ const Navbar = () => {
 
                         <div className="ul">
                             <div className="tab">
-                                <div className="user-icon"></div>
-                                Valeed
+                                {
+                                    photoUrl ? <div className="user-icon" style={{backgroundImage:`url("${photoUrl}")`,backgroundSize:'cover',backgroundRepeat:'no-repeat'}} ></div>:null
+                                }
+                                {fname}
                                 <div className="line"></div>
                             </div>
                             <div className="tab">Home
@@ -122,4 +128,11 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export const mapState = state => {
+    return {
+        auth:state.firebase.auth.uid,
+        profileData:state.firebase.profile
+    }
+}
+
+export default connect(mapState)(Navbar);

@@ -41,6 +41,7 @@ export const logOut = () => {
 export const uploadProfilePicture = file => {
     return (dispatch,getState,{getFirebase,getFirestore}) => {
         const firebase = getFirebase();
+        const firestore = getFirestore();
         const id = firebase.auth().currentUser.uid;
         var storageRef = firebase.storage().ref(`profile-picture/${id}`);
         // console.log('uploading');
@@ -58,9 +59,16 @@ export const uploadProfilePicture = file => {
                 .ref
                 .getDownloadURL()
                 .then(function (downloadURL) {
-                    dispatch({type:'UploadingEnd'});
-                    dispatch({type:'CloseUploadProfilePicture'});
-                    // firebase.updateProfile({photoURL: downloadURL});
+                    const Ref = firestore.collection('users').doc(id);
+                    return Ref.update({
+                        photoUrl:downloadURL
+                    }).then(res => {
+                        console.log('Firestore profile data has been updated successfully');
+                        dispatch({type:'UploadingEnd'});
+                        dispatch({type:'CloseUploadProfilePicture'});
+                    }).catch(err => {
+                        console.log(err.message);
+                    })
                 });
         })
     }
