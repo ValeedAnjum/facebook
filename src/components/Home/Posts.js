@@ -5,6 +5,7 @@ import SinglePost from './SinglePost';
 import LaodingPosts from './LaodingPosts';
 import {fetchPost} from '../../store/Actions/PostActions';
 import { logOut } from '../../store/Actions/UserActions';
+import CreatePost from './CreatePost';
 
 class Posts extends Component {
     state = {
@@ -54,48 +55,7 @@ class Posts extends Component {
         return (
             <div className="user-posts">
                 <h4 className="not-fully-responsive">This is not responsive version</h4>
-                <div className="create-post">
-                    <h4>Create Post</h4>
-                    <div className="user-image-and-content">
-                        {
-                            photoUrl ? <img src={photoUrl} alt="user-img"/>:null
-                        }
-                        <input type="text" placeholder="What's on your mind, Valeed?"/>
-                    </div>
-                    <div className="upload-content">
-                        <div className="upload-picture">
-                            <input
-                                type="file"
-                                style={{
-                                display: 'none'
-                            }}
-                                id="image"/>
-                            <button
-                                onClick={() => {
-                                document
-                                    .getElementById('image')
-                                    .click()
-                            }}>Photo</button>
-                        </div>
-                        <div className="upload-video">
-                            <input
-                                type="file"
-                                style={{
-                                display: 'none'
-                            }}
-                                id="image"/>
-                            <button
-                                onClick={() => {
-                                document
-                                    .getElementById('image')
-                                    .click()
-                            }}>Video</button>
-                        </div>
-                    </div>
-                    <div className="post-button-container">
-                        <button>Post</button>
-                    </div>
-                </div>
+                <CreatePost photoUrl={photoUrl} />
                 <div className="posts-container">
                     {(loadedPosts.length >= 1)
                         ? loadedPosts.map(post => {

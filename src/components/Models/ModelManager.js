@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import UploadProfilePicture from './UploadProfilePicture';
+import UploadProfilePicture from './UploadProfilePicture/UploadProfilePicture';
 import {uploadProfilePicture} from '../../store/Actions/UserActions';
 
 const ModelManager = ({ModelName, uploadProfilePicture, uploading}) => {

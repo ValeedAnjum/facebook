@@ -619,6 +619,41 @@ body {
     color: white;
     border-radius: 2px;
 }
+.main .user-posts .create-post .upload-content input {
+    display: none;
+}
+.main .user-posts .create-post textarea {
+    outline: none;
+    width: 100%;
+    resize: none;
+    border: none;
+    font-size: larger;
+}
+/* textarea scrollbar  */
+.main .user-posts .create-post textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+.main .user-posts .create-post textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.main .user-posts .create-post textarea::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+
+.main .user-posts .create-post textarea::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+/* textarea scrollbar  */
+
+.main .user-posts .create-post textarea::placeholder {
+    font-size: larger;
+}
+.main .user-posts .create-post .user-post-image img {
+    width: 100%;
+}
 .main .online-user {
     position: fixed;
     top: 46px;

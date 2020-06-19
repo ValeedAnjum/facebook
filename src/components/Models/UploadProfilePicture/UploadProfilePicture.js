@@ -1,12 +1,12 @@
 import React , { useState, Fragment } from 'react';
 import Resizer from 'react-image-file-resizer';
-import ModelOverlay from './ModelOverlay';
+import ModelOverlay from '../ModelOverlay';
 
 const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
     const [file, setfile] = useState(null);
     
     const fileChangedHandler  = event => {
-        var demoImage = document.querySelector('img');
+        // var demoImage = document.querySelector('img');
         var fileInput = false
         if(event.target.files[0]) {
             fileInput = true
@@ -21,9 +21,12 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
                 0,
                 uri => {
                     // console.log(uri)
-                    var demoImage = document.querySelector('img');
+                    // var demoImage = document.getElementById('display-profile-image');
                     setfile(uri);
-                    demoImage.src = uri;
+                    if(uri){
+                        var demoImage = document.getElementById('display-profile-image');
+                        demoImage.src = uri;
+                    }
                 },
                 'base64'
             );
@@ -47,7 +50,7 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
                     <form method='POST' encType='multipart/form-data' onSubmit={e => {e.preventDefault()}} >
                         <input type='file' onChange={fileChangedHandler} className="select-image" />
                     </form>
-                    { file && <img src={file} alt="not available" />}
+                    { file && <img src={file} alt="not available" id="display-profile-image" />}
                     { file && <button onClick={uploadProfilePictureLocal}>{!uploading ? 'Upload Picture':'Uploading'}</button>}
                 </div>
             </div>
