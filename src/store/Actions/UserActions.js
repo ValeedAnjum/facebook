@@ -75,20 +75,20 @@ export const uploadProfilePicture = file => {
 }
 
 export const addPost =  (file,userStory) =>  {
-    return async (dispatch,getState,{getFirebase, getFirestore}) => {
+    return (dispatch,getState,{getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const id = firebase.auth().currentUser.uid;
+        const { fname , photoUrl } = getState().firebase.profile;
         console.log('addPost');
         var storageRef = firebase.storage().ref(`post-pictures/${id}`);
-        // console.log('uploading');
         dispatch({type:'UploadingStart'});
         var uploadTask = storageRef.putString(file, 'data_url');
+        console.log(userStory.length);
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
         }, function (error) {
-            // Handle unsuccessful uploads
             console.log(error);
         }, function () {
             uploadTask
@@ -96,7 +96,39 @@ export const addPost =  (file,userStory) =>  {
                 .ref
                 .getDownloadURL()
                 .then(function (downloadURL) {
+                    const Ref = firestore.collection('Posts');
                     console.log(downloadURL);
+                    if(userStory.length > 0) {
+                        return Ref.add({
+                            contenturl:downloadURL,
+                            likes:0,
+                            name:fname,
+                            shared:'asdas',
+                            time:new Date(),
+                            userimage:photoUrl,
+                            userstory:userStory
+                        }).then(() => {
+                            console.log('Post Added Successfully');
+                            dispatch({type:'UploadingEnd'});
+                        }).catch(err => {
+                            console.log('err',err.message);
+                        })
+                    }else {
+                        return Ref.add({
+                            contenturl:downloadURL,
+                            likes:0,
+                            name:fname,
+                            shared:'asdas',
+                            time:new Date(),
+                            userimage:photoUrl
+                        }).then(() => {
+                            console.log('Post Added Successfully');
+                            dispatch({type:'UploadingEnd'});
+                        }).catch(err => {
+                            console.log('err',err.message);
+                        })
+                    }
+                    
                 });
         })
     }
