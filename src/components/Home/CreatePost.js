@@ -3,7 +3,7 @@ import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
 import {addPost} from '../../store/Actions/UserActions';
 import { fetchPost } from '../../store/Actions/PostActions';
-const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
+const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
     const [image, setimage] = useState(null);
     const [video, setvideo] = useState(null);
     const [userStory, setuserStory] = useState("");
@@ -28,6 +28,7 @@ const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
                 0,
                 uri => {
                     setimage(uri);
+                    setvideo(null);
                     if(uri){
                         var demoImage = document.getElementById('display-user-post-image');
                         demoImage.src = uri;
@@ -49,12 +50,18 @@ const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(){
-            // console.log(reader.result);
             setvideo(reader.result);
+            setimage(null);
         }
     }
     const savePost = () => {
-        addPost(image,userStory);
+        if(image){
+            addPost(image,userStory.trim());
+        }else if(video){
+            addPost(video,userStory.trim());
+        }else if(userStory.trim().length > 0){
+            addPost(null,userStory.trim());
+        }
     }
     const handleUserStory = event => {
         setuserStory(event.target.value);
@@ -80,8 +87,8 @@ const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
             </div>
             <div className="upload-content">
                 <div className="upload-picture">
-                    <input type="file" id="user-post-image" onChange={imageChangedHandler} />
-                    <input type="file" id="user-post-video" onChange={videoChnageHandler} />
+                    <input type="file" id="user-post-image" accept="image/*" onChange={imageChangedHandler} />
+                    <input type="file" id="user-post-video" accept="video/*" onChange={videoChnageHandler} />
                     <button onClick={imageClickHandler}>Photo</button>
                 </div>
                 <div className="upload-video">
@@ -99,7 +106,9 @@ const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
             </div>
             <div className="post-button-container">
                 {
-                    !uploading ? <button onClick={savePost}>Post</button>:<button>Posting...</button>
+                    !uploading ? <button
+                    onClick={savePost}>Post</button>:<button>Posting...({
+                        uploadingPercentage ? uploadingPercentage.toFixed(2):null}%)</button>
                 }
                 
             </div>
@@ -109,7 +118,8 @@ const CreatePost = ({ photoUrl, addPost, uploading, fetchPost }) => {
 
 const mapState = state => {
     return {
-        uploading:state.User.uploading        
+        uploading:state.User.uploading,
+        uploadingPercentage:state.User.uploadingPercentage        
     }
 }
 const mapDispatch = dispatch => {

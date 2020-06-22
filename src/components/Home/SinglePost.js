@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SinglePost = ({post}) => {
-    const { contenturl, name, userimage , userstory } = post;
+    const { picture, video, name, userimage , userstory } = post;
     // const { contenturl, id, likes, name, shared, time, userimage } = post;
     return (
         <div className="post">
@@ -86,7 +86,12 @@ const SinglePost = ({post}) => {
                 {
                     userstory ? userstory:null
                 }
-                <img src={contenturl} alt="post-img"/>
+                {
+                    picture ? <img src={picture} alt="post-img"/>:null
+                }
+                {
+                    video ? <video src={video} controls />:null
+                }
             </div>
             <div className="post-buttons">
                 <div className="button-container">

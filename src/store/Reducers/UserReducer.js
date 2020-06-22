@@ -10,6 +10,8 @@ export const UserReducer = ( state = intState , action ) => {
             return {...state,uploading:true};
         case 'UploadingEnd':
             return {...state,uploading:false};
+        case 'UploadingProgress':
+            return {...state,uploadingPercentage:action.payload}
         default:
             return state;
     }

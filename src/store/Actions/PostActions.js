@@ -30,8 +30,10 @@ export const fetchPost = lastPostId => {
 }
 
 export const addPostDumyData = () => {
-    return async(dispatch, getState) => {
+    return async(dispatch, getState , {getFirebase}) => {
         const firestore = firebase.firestore();
+        const firebaseL = getFirebase();
+        const id = firebaseL.auth().currentUser.uid;
         const Ref = firestore.collection('Posts');
         const userNumbers = [
             1,
@@ -58,12 +60,13 @@ export const addPostDumyData = () => {
             let randomImageNumber = Math.floor(Math.random() * (userNumbers.length));
             let randomUserNameIndex = Math.floor(Math.random() * (userNames.length));
             await Ref.add({
-                contenturl: `https://randomuser.me/api/portraits/women/${randomUserNumber}.jpg`,
+                picture: `https://randomuser.me/api/portraits/women/${randomUserNumber}.jpg`,
                 likes: 0,
                 name: userNames[randomUserNameIndex],
                 shared: i,
                 time: new Date(),
-                userimage: `https://randomuser.me/api/portraits/women/${randomImageNumber}.jpg`
+                userimage: `https://randomuser.me/api/portraits/women/${randomImageNumber}.jpg`,
+                userid:id
             })
             console.log(i);
         }

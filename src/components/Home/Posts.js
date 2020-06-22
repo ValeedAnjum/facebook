@@ -24,7 +24,6 @@ class Posts extends Component {
     lazyLoader = async() => {
         const scroolIsAtBottom = (document.documentElement.scrollHeight - window.innerHeight-1800) <= window.scrollY;
         if (scroolIsAtBottom && this.state.loading && this.state.morePosts) {
-            console.log('t');
             this.setState({loading: false});
             await this.loadNextPost();
             this.setState({loading: true});
