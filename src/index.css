@@ -654,6 +654,11 @@ body {
 .main .user-posts .create-post .user-post-image img {
     width: 100%;
 }
+.main .user-posts .create-post .user-post-image video {
+    width: 100%;
+    border: none;
+    outline: none;
+}
 .main .online-user {
     position: fixed;
     top: 46px;

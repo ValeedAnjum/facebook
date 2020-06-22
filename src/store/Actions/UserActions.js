@@ -90,7 +90,6 @@ export const uploadProfilePicture = file => {
     }
 }
 
-<<<<<<< HEAD
 export const addPost = (file, userStory) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const isImage = file && file.indexOf('image') > 1;
@@ -131,24 +130,12 @@ export const addPost = (file, userStory) => {
             : firebase
                 .storage()
                 .ref(`post-videos/${id}`);
-=======
-export const addPost =  (file,userStory) =>  {
-    return async (dispatch,getState,{getFirebase, getFirestore}) => {
-        const firebase = getFirebase();
-        const firestore = getFirestore();
-        const id = firebase.auth().currentUser.uid;
-        console.log('addPost');
-        var storageRef = firebase.storage().ref(`post-pictures/${id}`);
-        // console.log('uploading');
-        dispatch({type:'UploadingStart'});
->>>>>>> parent of c49ba83... video and images uploading to firebase storage
         var uploadTask = storageRef.putString(file, 'data_url');
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
             dispatch({type: 'UploadingProgress', payload: progress});
         }, function (error) {
-            // Handle unsuccessful uploads
             console.log(error);
         }, function () {
             uploadTask
@@ -156,8 +143,8 @@ export const addPost =  (file,userStory) =>  {
                 .ref
                 .getDownloadURL()
                 .then(function (downloadURL) {
+                    const Ref = firestore.collection('Posts');
                     console.log(downloadURL);
-<<<<<<< HEAD
                     if (userStory.length > 0 && isImage) {
                         return Ref.add({
                             picture: downloadURL,
@@ -238,8 +225,6 @@ export const addPost =  (file,userStory) =>  {
                         })
                     }
 
-=======
->>>>>>> parent of c49ba83... video and images uploading to firebase storage
                 });
         })
     }

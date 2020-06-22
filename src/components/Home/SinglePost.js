@@ -1,11 +1,7 @@
 import React from 'react'
 
 const SinglePost = ({post}) => {
-<<<<<<< HEAD
     const { picture, video, name, userimage , userstory } = post;
-=======
-    const { contenturl, name, userimage } = post;
->>>>>>> parent of c49ba83... video and images uploading to firebase storage
     // const { contenturl, id, likes, name, shared, time, userimage } = post;
     return (
         <div className="post">
@@ -87,7 +83,6 @@ const SinglePost = ({post}) => {
             </div>
             <div className="user-content">
                 {/* <img src="style/images/user.jpg" alt="post-img"/> */}
-<<<<<<< HEAD
                 {
                     userstory ? userstory:null
                 }
@@ -97,9 +92,6 @@ const SinglePost = ({post}) => {
                 {
                     video ? <video src={video} controls />:null
                 }
-=======
-                <img src={contenturl} alt="post-img"/>
->>>>>>> parent of c49ba83... video and images uploading to firebase storage
             </div>
             <div className="post-buttons">
                 <div className="button-container">
