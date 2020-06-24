@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SinglePost = ({post}) => {
+const SinglePost = ({ post, likePost}) => {
     const { picture, video, name, userimage , userstory } = post;
     // const { contenturl, id, likes, name, shared, time, userimage } = post;
     return (
@@ -95,7 +95,7 @@ const SinglePost = ({post}) => {
             </div>
             <div className="post-buttons">
                 <div className="button-container">
-                    <button className="like">Like</button>
+                    <button className="like" onClick={() => likePost(post)}>Like</button>
                     <button className="comment">Comment</button>
                     <button className="share">Share</button>
                 </div>
@@ -122,7 +122,7 @@ const SinglePost = ({post}) => {
                                 <span>Mashallah</span>
                             </div>
                             <div className="like-reply-btn-and-time">
-                                <button>Like</button>
+                                <button >Like</button>
                                 <button>Reply</button>
                                 <span>29m</span>
                             </div>

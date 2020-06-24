@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import SinglePost from './SinglePost';
 import LaodingPosts from './LaodingPosts';
-import {fetchPost} from '../../store/Actions/PostActions';
+import { fetchPost, likePost } from '../../store/Actions/PostActions';
 import { logOut } from '../../store/Actions/UserActions';
 import CreatePost from './CreatePost';
 
@@ -50,7 +50,7 @@ class Posts extends Component {
     render() {
         window.addEventListener('scroll', this.lazyLoader);
         const {loadedPosts} = this.state;
-        const {logOut , photoUrl} = this.props;
+        const {logOut , photoUrl, likePost} = this.props;
         return (
             <div className="user-posts">
                 <h4 className="not-fully-responsive">This is not responsive version</h4>
@@ -59,7 +59,7 @@ class Posts extends Component {
                     {(loadedPosts.length >= 1)
                         ? loadedPosts.map(post => {
                             return <Fragment key={post.id}>
-                                <SinglePost post={post}/>
+                                <SinglePost likePost={likePost} post={post}/>
                             </Fragment>
                         })
 
@@ -82,7 +82,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         fetchPost: lastPostId => dispatch(fetchPost(lastPostId)),
-        logOut:() => dispatch(logOut())
+        logOut:() => dispatch(logOut()),
+        likePost:post => dispatch(likePost(post))
     }
 }
 
