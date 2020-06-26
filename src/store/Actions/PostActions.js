@@ -1,25 +1,48 @@
 import firebase from '../../config/config';
 
 export const fetchPost = lastPostId => {
-    return async(dispatch, getState,{getFirebase}) => {
+    return async(dispatch, getState, {getFirebase}) => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
+        const id = firebase
+            .auth()
+            .currentUser
+            .uid;
         try {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
             lastItem
-                ? (query = Ref.orderBy('time','desc').startAfter(lastItem).limit(3))
-                : (query = Ref.orderBy('time','desc').limit(3));
-            dispatch({type:'FETCH_POST_START'});
+                ? (query = Ref.orderBy('time', 'desc').startAfter(lastItem).limit(3))
+                : (query = Ref.orderBy('time', 'desc').limit(3));
+            dispatch({type: 'FETCH_POST_START'});
             let querySnap = await query.get();
-            if(querySnap.docs.length === 0) {
+            if (querySnap.docs.length === 0) {
                 return querySnap;
             }
             let post = [];
-            for(let i = 0;i<querySnap.docs.length;i++){
-                post.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id});
+            for (let i = 0; i < querySnap.docs.length; i++) {
+                let isLiked = await Ref
+                    .doc(querySnap.docs[i].id)
+                    .collection('likes')
+                    .where('userid', '==', id)
+                    .get();
+                if (isLiked.docs.length >= 1) {
+                    if (isLiked.docs[0].data().userid === id) {
+                        isLiked = true;
+                    }
+                } else {
+                    isLiked = false;
+                }
+                post.push({
+                    ...querySnap
+                        .docs[i]
+                        .data(),
+                    id: querySnap.docs[i].id,
+                    isLiked
+                });
             }
-            dispatch({type:'FETCH_POST_SUCCESS',payload:post});
+
+            dispatch({type: 'FETCH_POST_SUCCESS', payload: post});
             // console.log(getState().PostReducer.post);
             return querySnap;
         } catch (err) {
@@ -170,24 +193,57 @@ export const addPost = (file, userStory) => {
 }
 
 export const likePost = post => {
-    return async (dispatch, getState , {getFirebase , getFirestore}) => {
+    return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
-        const increment = firebase.firestore.FieldValue.increment(1);
+        const increment = firebase
+            .firestore
+            .FieldValue
+            .increment(1);
         // const decrement = firebase.firestore.FieldValue.increment(-1);
-        const { likes , id} = post;
-        await Ref.doc(id).update({
-            likes:increment
-        })
-        console.log('Updated');
+        const {likes, id, userid} = post;
+        await Ref
+            .doc(id)
+            .update({likes: increment})
+        await Ref
+            .doc(id)
+            .collection('likes').doc(`${userid}_${id}`)
+            .set({userid: userid, postid: id})
+        console.log('liked post');
     }
 }
 
+export const unlikePost = post => {
+    return async(dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = firebase.firestore();
+        const Ref = firestore.collection('Posts');
+        const increment = firebase
+            .firestore
+            .FieldValue
+            .increment(-1);
+        const {likes, id, userid} = post;
+        console.log('Unlike Post');
+        try {
+            if (likes > 0) {
+                await Ref
+                    .doc(id)
+                    .update({likes: increment})
+                await Ref.doc(id).collection('likes').doc(`${userid}_${id}`).delete();
+            }
+            console.log('unliked post');
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+}
 export const addPostDumyData = () => {
-    return async(dispatch, getState , {getFirebase}) => {
+    return async(dispatch, getState, {getFirebase}) => {
         const firestore = firebase.firestore();
         const firebaseL = getFirebase();
-        const id = firebaseL.auth().currentUser.uid;
+        const id = firebaseL
+            .auth()
+            .currentUser
+            .uid;
         const Ref = firestore.collection('Posts');
         const userNumbers = [
             1,
@@ -220,7 +276,7 @@ export const addPostDumyData = () => {
                 shared: i,
                 time: new Date(),
                 userimage: `https://randomuser.me/api/portraits/women/${randomImageNumber}.jpg`,
-                userid:id
+                userid: id
             })
             console.log(i);
         }

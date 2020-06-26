@@ -830,6 +830,10 @@ body {
 .main .posts-container .post .post-buttons .button-container button:hover {
     background-color: #f0f0f0;
 }
+.main .posts-container .post .post-buttons .button-container button.is-liked {
+    color:#4267b2;
+    font-weight:600;
+}
 .main .posts-container .post .comments .single-comment {
     padding: 0 10px;
 }

@@ -1,8 +1,25 @@
-import React from 'react'
+import React, {useState, Fragment} from 'react'
 
-const SinglePost = ({ post, likePost}) => {
-    const { picture, video, name, userimage , userstory } = post;
-    // const { contenturl, id, likes, name, shared, time, userimage } = post;
+const SinglePost = ({post, likePost, unlikePost}) => {
+    const {
+        picture,
+        video,
+        name,
+        userimage,
+        userstory,
+        isLiked
+    } = post;
+    const [localIsLiked,
+        setlocalIsLiked] = useState(isLiked);
+
+    const likeHandler = isLiked => {
+        setlocalIsLiked(true);
+        likePost(post);
+    }
+    const unLikeHandler = isLiked => {
+        setlocalIsLiked(false);
+        unlikePost(post);
+    }
     return (
         <div className="post">
             <div className="user-data">
@@ -83,19 +100,49 @@ const SinglePost = ({ post, likePost}) => {
             </div>
             <div className="user-content">
                 {/* <img src="style/images/user.jpg" alt="post-img"/> */}
-                {
-                    userstory ? userstory:null
-                }
-                {
-                    picture ? <img src={picture} alt="post-img"/>:null
-                }
-                {
-                    video ? <video src={video} controls />:null
-                }
+                {userstory
+                    ? userstory
+                    : null
+}
+                {picture
+                    ? <img src={picture} alt="post-img"/>
+                    : null
+}
+                {video
+                    ? <video src={video} controls/>
+                    : null
+}
             </div>
             <div className="post-buttons">
                 <div className="button-container">
-                    <button className="like" onClick={() => likePost(post)}>Like</button>
+                    <button className="like">
+                        100 Peoples like this
+                    </button>
+                    <button className="comment">100 Comment</button>
+                </div>
+            </div>
+            <div className="post-buttons">
+                <div className="button-container">
+                    {(localIsLiked)
+                        ? <Fragment>
+                                <button
+                                    className={`${isLiked
+                                    ? 'is-liked'
+                                    : null} like ${localIsLiked
+                                        ? 'is-liked'
+                                        : null}`}
+                                    onClick={unLikeHandler}>
+                                    Unlike
+                                </button>
+                            </Fragment>
+                        : <Fragment>
+                            <button
+                                className={`like`}
+                                onClick={likeHandler}>
+                                like
+                            </button>
+                        </Fragment>
+}
                     <button className="comment">Comment</button>
                     <button className="share">Share</button>
                 </div>
