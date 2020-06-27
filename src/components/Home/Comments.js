@@ -1,38 +1,38 @@
 import React from 'react'
-
-const Comments = () => {
+import {connect} from 'react-redux';
+import {compose} from 'redux';
+import {firestoreConnect} from 'react-redux-firebase';
+import SingleComment from './SingleComment';
+const Comments = ({comments}) => {
+    console.log(comments);
     return (
         <div className="comments">
-            <div className="single-comment">
-                <img src="style/images/user.jpg" alt="comment"/>
-                <div className="user-name-and-message-and-options">
-                    <div className="user-name-and-message">
-                        <span>Valeed Anjum</span>
-                        <span>Mashallah</span>
-                    </div>
-                    <div className="like-reply-btn-and-time">
-                        <button>Like</button>
-                        <button>Reply</button>
-                        <span>29m</span>
-                    </div>
-                </div>
-                <div className="single-comment">
-                    <img src="style/images/user.jpg" alt="comment"/>
-                    <div className="user-name-and-message-and-options">
-                        <div className="user-name-and-message">
-                            <span>Valeed Anjum</span>
-                            <span>Mashallah</span>
-                        </div>
-                        <div className="like-reply-btn-and-time">
-                            <button >Like</button>
-                            <button>Reply</button>
-                            <span>29m</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {
+                comments && comments.map(comment => {
+                    return <SingleComment key={comment.id} comment={comment} />
+                })
+            }
         </div>
     )
 }
 
-export default Comments
+const mapState = state => {
+    console.log(state.firestore.ordered.Posts);
+    return {comments: state.firestore.ordered.Posts}
+}
+const mapDispatch = dispatch => {
+    return {}
+}
+export default compose(connect(mapState, mapDispatch), firestoreConnect([
+    {
+        collection: 'Posts',
+        doc:'dMDqQSpxsXZrI4qIHAM5',
+        subcollections: [{ 
+            collection: 'comments',
+            where:[
+                'reply','==',''
+            ]
+        }]
+
+    }
+]))(Comments);

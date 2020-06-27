@@ -849,6 +849,25 @@ body {
     margin-left: 5px;
     display: inline-block;
 }
+.main .posts-container .post .comments .single-comment .comment-replies {
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+}
+.main .posts-container .post .comments .single-comment .comment-replies:hover {
+    cursor: pointer;
+}
+.main .posts-container .post .comments .single-comment .comment-replies i {
+    font-size: small;
+    margin-right: 3px;
+}
+.main .posts-container .post .comments .single-comment .comment-replies h6 {
+    font-size: 11px;
+    margin-bottom: 0px !important;
+}
+.main .posts-container .post .comments .single-comment .comment-replies h6:hover {
+    text-decoration: underline;
+}
 .main .posts-container .post .comments .single-comment .user-name-and-message-and-options .user-name-and-message {
     display: flex;
     flex-direction: column;
@@ -859,6 +878,10 @@ body {
     background-color: transparent;
     cursor: pointer;
     color: #65676b;
+    margin-right: 5px;
+}
+.main .posts-container .post .comments .single-comment .user-name-and-message-and-options .like-reply-btn-and-time button:hover {
+    text-decoration: underline;
 }
 .main .posts-container .post .comments .single-comment .user-name-and-message-and-options .like-reply-btn-and-time span {
     color: #65676b;
