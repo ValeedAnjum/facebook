@@ -4,11 +4,13 @@ import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import SingleComment from './SingleComment';
 const Comments = ({comments}) => {
-    console.log(comments);
+    // if(comments){
+    //     console.log(comments[0].comments);
+    // }
     return (
         <div className="comments">
             {
-                comments && comments.map(comment => {
+                comments && comments[0].comments.map(comment => {
                     return <SingleComment key={comment.id} comment={comment} />
                 })
             }
@@ -17,7 +19,7 @@ const Comments = ({comments}) => {
 }
 
 const mapState = state => {
-    console.log(state.firestore.ordered.Posts);
+    // console.log(state.firestore.ordered.Posts);
     return {comments: state.firestore.ordered.Posts}
 }
 const mapDispatch = dispatch => {
@@ -30,7 +32,7 @@ export default compose(connect(mapState, mapDispatch), firestoreConnect([
         subcollections: [{ 
             collection: 'comments',
             where:[
-                'reply','==',''
+                'reply','==','false'
             ]
         }]
 
