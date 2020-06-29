@@ -8,7 +8,8 @@ const SinglePost = ({post, likePost, unlikePost}) => {
         name,
         userimage,
         userstory,
-        isLiked
+        isLiked,
+        id
     } = post;
     const [localIsLiked,
         setlocalIsLiked] = useState(isLiked);
@@ -148,7 +149,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                     <button className="share">Share</button>
                 </div>
             </div>
-            <Comments />
+            <Comments postId={id} />
             <div className="post-comment">
                 <img src="style/images/user.jpg" alt="user-img"/>
                 <div className="comment-content">

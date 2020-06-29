@@ -3,25 +3,12 @@ import SingleComment from './SingleComment';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { fetchCommentReplies } from '../../store/Actions/PostActions';
-const CommentsReplies = ({ id , fetchCommentReplies }) => {
+const CommentsReplies = ({ id }) => {
     return (
         <Fragment>
-            <h1 onClick={() => fetchCommentReplies(id)}>Khan</h1>
+            <h1>Khan</h1>
         </Fragment>
     )
 }
 
-const mapState = state => {
-    // console.log(state.firestore);
-    return {
-
-    }
-}
-
-const mapDispatch = dispatch => {
-    return {
-        fetchCommentReplies:commnetId => dispatch(fetchCommentReplies(commnetId))
-    }
-}
-export default connect(mapState,mapDispatch)(CommentsReplies);
+export default CommentsReplies;

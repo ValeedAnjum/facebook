@@ -237,18 +237,16 @@ export const unlikePost = post => {
     }
 }
 
-export const fetchCommentReplies = commentId => {
+export const fetchPostComments = postId => {
     return async( dispatch , getState ) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc('dMDqQSpxsXZrI4qIHAM5').collection('comments');
-        const data  = await Ref.where('replyof','==','mPnwZZXFd9z5D2zpNTmP').get();
-        const replies  = [];
-        if(data.docs.length >= 1){
-            for(let i = 0; i<data.docs.length; i++){
-                replies.push(data.docs[i].data());
-            }
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const query = Ref.where('replyof','==','false');
+        const querySnap = await query.get();
+        if (querySnap.docs.length === 0) {
+            return querySnap;
         }
-        console.log(replies);
+        
     }
 }
 
