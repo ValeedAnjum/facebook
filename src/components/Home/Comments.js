@@ -32,7 +32,7 @@ export default compose(connect(mapState, mapDispatch), firestoreConnect([
         subcollections: [{ 
             collection: 'comments',
             where:[
-                'reply','==','false'
+                'replyof','==','false'
             ]
         }]
 

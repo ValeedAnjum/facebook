@@ -1,7 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
+import CommentsReplies from './CommentsReplies';
 
 const SingleComment = ({comment}) => {
-    const {likes, message, name, profileimage, replies} = comment;
+    const [showReplies, setshowReplies] = useState(false);
+    const {likes, message, name, profileimage, replies , id} = comment;
+    const showRepliesHandler = () => {
+        setshowReplies(true);
+    }
     return (
         <div className="single-comment">
             <img src="style/images/user.jpg" alt="comment"/>
@@ -16,15 +21,15 @@ const SingleComment = ({comment}) => {
                     <span>29m</span>
                 </div>
             </div>
-            {(replies >= 1)
+            {(replies >= 1 && !showReplies)
                 ? <Fragment>
-                        <div className="comment-replies">
+                        <div className="comment-replies" onClick={showRepliesHandler}>
                             <i className="fas fa-arrow-down"></i>
                             <h6>
                                 {replies} Replies</h6>
                         </div>
                     </Fragment>
-                : null
+                : <CommentsReplies id={id} />
             }
 
         </div>
