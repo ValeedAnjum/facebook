@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react'
 import CommentsReplies from './CommentsReplies';
 
-const SingleComment = ({comment}) => {
+const SingleComment = ({comment,postId}) => {
     const [showReplies, setshowReplies] = useState(false);
     const {likes, message, name, profileimage, replies , id} = comment;
     const showRepliesHandler = () => {
         setshowReplies(true);
     }
+    
     return (
         <div className="single-comment">
             <img src="style/images/user.jpg" alt="comment"/>
@@ -29,9 +30,12 @@ const SingleComment = ({comment}) => {
                                 {replies} Replies</h6>
                         </div>
                     </Fragment>
-                : <CommentsReplies id={id} />
+                : <Fragment>
+                    {
+                        (replies >= 1) ? <CommentsReplies commentId={id} postId={postId} />:null
+                    }
+                </Fragment>
             }
-
         </div>
     )
 }

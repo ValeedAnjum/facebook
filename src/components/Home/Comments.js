@@ -3,15 +3,13 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import SingleComment from './SingleComment';
-import { fetchPostComments } from '../../store/Actions/PostActions';
-const Comments = ({comments,fetchPostComments,postId}) => {
+const Comments = ({comments , postId}) => {
     
     return (
-        <div className="comments" onClick={() => fetchPostComments(postId)}>
-            <h1>Khan</h1>
+        <div className="comments">
             {
                 comments && comments[0].comments.map(comment => {
-                    return <SingleComment key={comment.id} comment={comment} />
+                    return <SingleComment postId={postId} key={comment.id} comment={comment} />
                 })
             }
         </div>
@@ -20,13 +18,23 @@ const Comments = ({comments,fetchPostComments,postId}) => {
 
 const mapState = state => {
     // console.log(state.firestore.ordered.Posts);
-    return {
-
-    }
+    return {comments: state.firestore.ordered.Posts}
 }
 const mapDispatch = dispatch => {
-    return {
-        fetchPostComments:PostId => dispatch(fetchPostComments(PostId))
-    }
+    return {}
 }
-export default compose(connect(mapState, mapDispatch))(Comments);
+export default compose(connect(mapState, mapDispatch), firestoreConnect(props => {
+    // console.log(props.postId);
+    return props.postId && [
+        {
+            collection: 'Posts',
+            doc:'dMDqQSpxsXZrI4qIHAM5',
+            subcollections: [{ 
+                collection: 'comments',
+                where:[
+                    'replyof','==','false'
+                ]
+            }]
+        }
+    ]
+}))(Comments);
