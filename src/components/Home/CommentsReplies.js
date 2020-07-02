@@ -1,16 +1,15 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import SingleComment from './SingleComment';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { fetchCommentReplies } from '../../store/Actions/PostActions';
 const CommentsReplies = (props) => {
-    const {commentId, postId, comments} = props;
-    if(comments){
-        console.log(comments[0].comments);
-    }
-    // console.log(postId);
-    // console.log(commentId);
+    const {commentId, postId, comments, fetchCommentReplies} = props;
+    useEffect(() => {
+        fetchCommentReplies(postId,commentId);
+    },[])
+
     return (
         <Fragment>
             {
