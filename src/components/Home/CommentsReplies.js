@@ -5,29 +5,18 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { fetchCommentReplies } from '../../store/Actions/PostActions';
 const CommentsReplies = (props) => {
-    const { commentId, postId , fetchCommentReplies , replies} = props;
-    const [comments, setComments] = useState(false);
-    const fetchCommentRepliesL = async () => {
-        await fetchCommentReplies(postId,commentId);
+    const {commentId, postId, comments} = props;
+    if(comments){
+        console.log(comments[0].comments);
     }
+    // console.log(postId);
+    // console.log(commentId);
     return (
         <Fragment>
-            <h6 onClick={fetchCommentRepliesL}>No Replay</h6>
             {
-                replies && !comments && replies.map(com => {
-                    return <SingleComment key={com.id} comment={com} />
+                comments && comments[0].comments.length >= 1 && comments[0].comments.map(comment => {
+                    return <SingleComment key={comment.id} comment={comment} postId={postId} />
                 })
-            }
-            {
-
-            }
-            {/* {
-                comments &&  comments.map(com => {
-                    return <SingleComment key={com.id} comment={com} />
-                })
-            } */}
-            {
-                comments ? <h1>True</h1>:<h1>false</h1>
             }
         </Fragment>
     )
@@ -35,7 +24,7 @@ const CommentsReplies = (props) => {
 
 const mapState = state => {
     return {
-        replies:state.PostReducer.commentReplies
+        comments:state.firestore.ordered.Posts
     }
 }
 
@@ -44,4 +33,18 @@ const mapDispatch = dispatch => {
         fetchCommentReplies:(postId,commentId) => dispatch(fetchCommentReplies(postId,commentId))
     }
 }
-export default connect(mapState,mapDispatch)(CommentsReplies);
+export default compose(
+    connect(mapState,mapDispatch),
+    firestoreConnect(props => {
+        return props.postId && props.commentId && [{
+            collection:'Posts',
+            doc:props.postId,
+            subcollections: [{
+                collection: 'comments',
+                where:[
+                    'replyof','==',`${props.commentId}`
+                ]
+            }]
+        }]
+    })
+)(CommentsReplies);

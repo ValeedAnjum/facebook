@@ -1,40 +1,45 @@
-import React from 'react'
+import React , { Component ,useEffect } from 'react'
 import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {firestoreConnect} from 'react-redux-firebase';
 import SingleComment from './SingleComment';
-const Comments = ({comments , postId}) => {
-    
-    return (
-        <div className="comments">
+import { fetchPostComments } from '../../store/Actions/PostActions';
+
+
+export class Comments extends Component {
+    state = {
+        loadedComments:[]
+    }
+    async componentDidMount() {
+        const next = await this
+            .props
+            .fetchPostComments(this.props.postId);
+        if (next && next.docs && next.docs.length >= 1) {
+            this.setState({loadedComments:this.props.comments});
+        }
+    }
+    render() {
+        const { fetchPostComments , postId } = this.props;
+        const { loadedComments } = this.state;
+        return (
+            <div className="comments">
             {
-                comments && comments[0].comments.map(comment => {
+                loadedComments && loadedComments.length>=1 && loadedComments.map(comment => {
                     return <SingleComment postId={postId} key={comment.id} comment={comment} />
                 })
             }
         </div>
-    )
+        )
+    }
 }
 
+
+
 const mapState = state => {
-    // console.log(state.firestore.ordered.Posts);
-    return {comments: state.firestore.ordered.Posts}
+    // console.log(state.PostReducer.commentReplies);
+    return {comments: state.PostReducer.commentReplies}
 }
 const mapDispatch = dispatch => {
-    return {}
+    return {
+        fetchPostComments:postId => dispatch(fetchPostComments(postId))
+    }
 }
-export default compose(connect(mapState, mapDispatch), firestoreConnect(props => {
-    // console.log(props.postId);
-    return props.postId && [
-        {
-            collection: 'Posts',
-            doc:'dMDqQSpxsXZrI4qIHAM5',
-            subcollections: [{ 
-                collection: 'comments',
-                where:[
-                    'replyof','==','false'
-                ]
-            }]
-        }
-    ]
-}))(Comments);
+export default connect(mapState, mapDispatch)(Comments);

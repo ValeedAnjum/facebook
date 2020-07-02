@@ -237,18 +237,26 @@ export const unlikePost = post => {
     }
 }
 
-export const fetchCommentReplies = (postId, commentId) => {
+export const fetchPostComments =  postId => {
     return async( dispatch , getState ) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc('dMDqQSpxsXZrI4qIHAM5').collection('comments');
-        const data  = await Ref.where('replyof','==','mPnwZZXFd9z5D2zpNTmP').get();
-        const replies  = [];
-        if(data.docs.length >= 1){
-            for(let i = 0; i<data.docs.length; i++){
-                replies.push({...data.docs[i].data(),id:data.docs[i].id});
-            }
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const query = Ref.where('replyof','==','false');
+        const querySnap = await query.get();
+        let comments = [];
+        for(let i = 0; i<querySnap.docs.length; i++){
+            comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
-        dispatch({type:'FETCH_COMMENT_REPLIES_SUCCESS',payload:replies});
+        dispatch({type:'FETCH_POST_COMMENTS_SUCCESS',payload:comments});
+        return querySnap;
+
+    }
+}
+
+export const fetchCommentReplies = (postId,commentId) => {
+    return async( dispatch , getState ) => {
+        const firestore = firebase.firestore();
+        
     }
 }
 
