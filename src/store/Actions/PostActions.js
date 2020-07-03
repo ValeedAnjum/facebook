@@ -256,12 +256,14 @@ export const fetchPostComments =  postId => {
 export const fetchCommentReplies = (postId,commentId) => {
     return async( dispatch , getState ) => {
         const firestore = firebase.firestore();
-        const query = firestore.collection('Posts').doc(postId).collection('comments').doc(commentId);
-        const querySnap = query.get();
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const query = Ref.where('replyof','==',`${commentId}`);
+        const querySnap = await query.get();
         let comments = [];
         for(let i = 0; i<querySnap.docs.length; i++){
             comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
+        console.log(getState().PostReducer.commentReplies);
         dispatch({type:'FETCH_POST_COMMENTS_REPLIES_SUCCESS',payload:comments});
         return querySnap;
     }

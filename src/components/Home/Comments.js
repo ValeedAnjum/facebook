@@ -35,7 +35,7 @@ export class Comments extends Component {
 
 const mapState = state => {
     // console.log(state.PostReducer.commentReplies);
-    return {comments: state.PostReducer.commentReplies}
+    return {comments: state.PostReducer.postComments}
 }
 const mapDispatch = dispatch => {
     return {

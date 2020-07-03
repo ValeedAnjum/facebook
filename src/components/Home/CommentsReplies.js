@@ -13,7 +13,7 @@ const CommentsReplies = (props) => {
     return (
         <Fragment>
             {
-                comments && comments[0].comments.length >= 1 && comments[0].comments.map(comment => {
+                comments && comments.length >= 1 && comments.map(comment => {
                     return <SingleComment key={comment.id} comment={comment} postId={postId} />
                 })
             }
@@ -22,8 +22,9 @@ const CommentsReplies = (props) => {
 }
 
 const mapState = state => {
+    // console.log(state.PostReducer.commentReplies);
     return {
-        comments:state.firestore.ordered.Posts
+        comments:state.PostReducer.commentReplies
     }
 }
 
