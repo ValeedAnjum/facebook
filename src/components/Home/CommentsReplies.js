@@ -14,7 +14,7 @@ const CommentsReplies = (props) => {
         <Fragment>
             {
                 comments && comments.length >= 1 && comments.map(comment => {
-                    return <SingleComment key={comment.id} comment={comment} postId={postId} />
+                    return <SingleComment commentreply key={comment.id} comment={comment} postId={postId} />
                 })
             }
         </Fragment>

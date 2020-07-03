@@ -1,4 +1,5 @@
 import firebase from '../../config/config';
+import { firestore } from 'firebase';
 
 export const fetchPost = lastPostId => {
     return async(dispatch, getState, {getFirebase}) => {
@@ -269,6 +270,30 @@ export const fetchCommentReplies = (postId,commentId) => {
     }
 }
 
+export const addComment = (postId,data) => {
+    return async( dispatch, getState ) => {
+        const firestore = firebase.firestore();
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const { message, replyof } = data;
+        const { photoUrl , fname, lname} = getState().firebase.profile;
+        let replyoff = replyof ?  replyof:'false';
+        const id = firebase.auth().currentUser.uid;
+        try {
+            await Ref.add({
+                likes:[],
+                message:message,
+                name:`${fname} ${lname}`,
+                profileimage:photoUrl,
+                replies:0,
+                replyof:replyoff
+            })
+            console.log('c');
+        } catch (err) {
+            console.log(err.message);
+        }
+        
+    }
+}
 export const addPostDumyData = () => {
     return async(dispatch, getState, {getFirebase}) => {
         const firestore = firebase.firestore();

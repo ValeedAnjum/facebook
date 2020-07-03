@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react'
 import CommentsReplies from './CommentsReplies';
+import CommentInput from './CommentInput';
 
-const SingleComment = ({comment,postId}) => {
+const SingleComment = ({comment,postId,commentreply}) => {
     const [showReplies, setshowReplies] = useState(false);
     const {likes, message, name, profileimage, replies , id} = comment;
     const showRepliesHandler = () => {
@@ -18,8 +19,13 @@ const SingleComment = ({comment,postId}) => {
                 </div>
                 <div className="like-reply-btn-and-time">
                     <button>Like</button>
-                    <button>Reply</button>
+                    {
+                        !commentreply ? <button>Reply</button>:null
+                    }
                     <span>29m</span>
+                </div>
+                <div className="post-comment">
+                    <CommentInput />
                 </div>
             </div>
             {(replies >= 1 && !showReplies)

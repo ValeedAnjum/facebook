@@ -1,5 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import Comments from './Comments';
+import CommentInput from './CommentInput';
 
 const SinglePost = ({post, likePost, unlikePost}) => {
     const {
@@ -152,13 +153,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
             <Comments postId={id} />
             <div className="post-comment">
                 <img src="style/images/user.jpg" alt="user-img"/>
-                <div className="comment-content">
-                    <input type="text" name="user-comment" placeholder="Write a comment"/>
-                    <i className="far fa-surprise"></i>
-                    <i className="far fa-surprise"></i>
-                    <i className="far fa-surprise"></i>
-                    <i className="far fa-surprise"></i>
-                </div>
+                <CommentInput postId={id} />
             </div>
         </div>
     )

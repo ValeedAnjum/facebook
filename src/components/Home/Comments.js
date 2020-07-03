@@ -16,6 +16,9 @@ export class Comments extends Component {
             this.setState({loadedComments:this.props.comments});
         }
     }
+    addCommentLocally = () => {
+        console.log('Add Comments Locally');
+    }
     render() {
         const { fetchPostComments , postId } = this.props;
         const { loadedComments } = this.state;
