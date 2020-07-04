@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addComment } from '../../store/Actions/PostActions';
-const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
+const CommentInput = ({postId, addComment, replyof}) => {
 
-    const valueHanler = async event => {
+    const valueHanler = event => {
         const val = event.target.value.trim();
         if(event.which === 13 && val.length>=1) {
-            await addComment(postId,{message:val,replyof});
-            addCommentLocally(val);
-            // event.target.value = "";
+            addComment(postId,{message:val,replyof});
         }
     }
     return (

@@ -151,7 +151,10 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                 </div>
             </div>
             <Comments postId={id} />
-            
+            <div className="post-comment">
+                <img src="style/images/user.jpg" alt="user-img"/>
+                <CommentInput postId={id} />
+            </div>
         </div>
     )
 }

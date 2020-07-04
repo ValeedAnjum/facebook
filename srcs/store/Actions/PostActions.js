@@ -241,7 +241,7 @@ export const unlikePost = post => {
 export const fetchPostComments =  postId => {
     return async( dispatch , getState ) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc(postId).collection('comments').orderBy('time');
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
         const query = Ref.where('replyof','==','false');
         const querySnap = await query.get();
         let comments = [];
@@ -285,8 +285,7 @@ export const addComment = (postId,data) => {
                 name:`${fname} ${lname}`,
                 profileimage:photoUrl,
                 replies:0,
-                replyof:replyoff,
-                time:new Date()
+                replyof:replyoff
             })
             console.log('c');
         } catch (err) {

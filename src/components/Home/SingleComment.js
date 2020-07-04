@@ -11,7 +11,8 @@ const SingleComment = ({comment,postId,commentreply}) => {
     
     return (
         <div className="single-comment">
-            <img src="style/images/user.jpg" alt="comment"/>
+            {/* <img src="style/images/user.jpg" alt="comment"/> */}
+            <img src={profileimage} alt="comment"/>
             <div className="user-name-and-message-and-options">
                 <div className="user-name-and-message">
                     <span>{name}</span>
@@ -24,9 +25,9 @@ const SingleComment = ({comment,postId,commentreply}) => {
                     }
                     <span>29m</span>
                 </div>
-                <div className="post-comment">
+                {/* <div className="post-comment">
                     <CommentInput />
-                </div>
+                </div> */}
             </div>
             {(replies >= 1 && !showReplies)
                 ? <Fragment>
