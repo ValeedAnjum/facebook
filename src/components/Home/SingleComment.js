@@ -25,9 +25,9 @@ const SingleComment = ({comment,postId,commentreply}) => {
                     }
                     <span>29m</span>
                 </div>
-                {/* <div className="post-comment">
+                <div className="post-comment">
                     <CommentInput />
-                </div> */}
+                </div>
             </div>
             {(replies >= 1 && !showReplies)
                 ? <Fragment>

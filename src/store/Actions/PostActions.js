@@ -264,7 +264,7 @@ export const fetchCommentReplies = (postId,commentId) => {
         for(let i = 0; i<querySnap.docs.length; i++){
             comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
-        console.log(getState().PostReducer.commentReplies);
+        // console.log(getState().PostReducer.commentReplies);
         dispatch({type:'FETCH_POST_COMMENTS_REPLIES_SUCCESS',payload:comments});
         return querySnap;
     }

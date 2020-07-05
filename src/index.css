@@ -836,6 +836,17 @@ body {
 }
 .main .posts-container .post .comments .single-comment {
     padding: 0 10px;
+    animation-name: singlecomment;
+    animation-duration: 1s;
+}
+/* animation fro single comment  */
+@keyframes singlecomment {
+    from{
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 .main .posts-container .post .comments .single-comment img {
     width: 50px;
