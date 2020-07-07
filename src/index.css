@@ -1195,3 +1195,13 @@ body {
     left: 0;
     z-index: 101;
 }
+
+/* Model Saving comment Replies  */
+.saving-comment-replies {
+    position: fixed;
+    background-color: white;
+    z-index: 200;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

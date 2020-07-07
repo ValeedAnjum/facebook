@@ -13,6 +13,8 @@ export const PostReducer = (state = initState, action ) => {
             return {...state,loading:false,post:action.payload}
         case 'FETCH_POST_COMMENTS_SUCCESS':
             return {...state,postComments:action.payload}
+        case 'FETCH_POST_COMMENTS_REPLIES_START':
+            return {...state,commentReplies:null}
         case 'FETCH_POST_COMMENTS_REPLIES_SUCCESS':
             return {...state,commentReplies:action.payload}
         default:

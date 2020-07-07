@@ -257,8 +257,9 @@ export const fetchPostComments =  postId => {
 export const fetchCommentReplies = (postId,commentId) => {
     return async( dispatch , getState ) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const Ref = firestore.collection('Posts').doc(postId).collection('comments').orderBy('time');
         const query = Ref.where('replyof','==',`${commentId}`);
+        dispatch({type:'FETCH_POST_COMMENTS_REPLIES_START'})
         const querySnap = await query.get();
         let comments = [];
         for(let i = 0; i<querySnap.docs.length; i++){
@@ -274,12 +275,21 @@ export const addComment = (postId,data) => {
     return async( dispatch, getState ) => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const increment = firebase
+            .firestore
+            .FieldValue
+            .increment(1);
         const { message, replyof } = data;
         const { photoUrl , fname, lname} = getState().firebase.profile;
         let replyoff = replyof ?  replyof:'false';
         const id = firebase.auth().currentUser.uid;
         try {
-            await Ref.add({
+            if(replyof){
+                await firestore.collection('Posts').doc(postId).collection('comments').doc(replyoff).update({
+                    replies:increment
+                })
+            }
+            const res = await Ref.add({
                 likes:[],
                 message:message,
                 name:`${fname} ${lname}`,
@@ -288,7 +298,7 @@ export const addComment = (postId,data) => {
                 replyof:replyoff,
                 time:new Date()
             })
-            console.log('c');
+            return res.id;
         } catch (err) {
             console.log(err.message);
         }

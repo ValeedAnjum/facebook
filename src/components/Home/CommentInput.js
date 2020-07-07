@@ -12,8 +12,8 @@ const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
                 setsavingComment(true);
                 event.target.disabled = true;
                 event.persist();
-                await addComment(postId,{message:val,replyof});
-                addCommentLocally(val);
+                const commentId =  await addComment(postId,{message:val,replyof});
+                addCommentLocally && addCommentLocally(val,commentId);
                 setValue("");
                 setsavingComment(false);
                 event.target.disabled = false;
