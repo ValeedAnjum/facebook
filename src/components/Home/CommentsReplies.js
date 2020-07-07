@@ -22,7 +22,6 @@ const CommentsReplies = (props) => {
 }
 
 const mapState = state => {
-    // console.log(state.PostReducer.commentReplies);
     return {
         comments:state.PostReducer.commentReplies
     }
