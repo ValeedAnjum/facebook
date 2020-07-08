@@ -9,13 +9,13 @@ export const fetchPost = lastPostId => {
             .auth()
             .currentUser
             .uid;
+        dispatch({type: 'FETCH_POST_START'});
         try {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
             lastItem
                 ? (query = Ref.orderBy('time', 'desc').startAfter(lastItem).limit(3))
                 : (query = Ref.orderBy('time', 'desc').limit(3));
-            dispatch({type: 'FETCH_POST_START'});
             let querySnap = await query.get();
             if (querySnap.docs.length === 0) {
                 return querySnap;
@@ -243,6 +243,7 @@ export const fetchPostComments =  postId => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts').doc(postId).collection('comments').orderBy('time');
         const query = Ref.where('replyof','==','false');
+        dispatch({type:'FETCH_POST_COMMENTS_START'});
         const querySnap = await query.get();
         let comments = [];
         for(let i = 0; i<querySnap.docs.length; i++){
@@ -265,7 +266,6 @@ export const fetchCommentReplies = (postId,commentId) => {
         for(let i = 0; i<querySnap.docs.length; i++){
             comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
-        // console.log(getState().PostReducer.commentReplies);
         dispatch({type:'FETCH_POST_COMMENTS_REPLIES_SUCCESS',payload:comments});
         return querySnap;
     }

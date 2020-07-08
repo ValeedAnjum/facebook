@@ -1,10 +1,13 @@
 import React, {useState, Fragment} from 'react'
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import MessageListNotifictaion from './MessageListNotifictaion';
 import NotificationList from './NotificationList';
+import { withRouter, NavLink } from 'react-router-dom';
 
-const Navbar = ({ auth, profileData:{photoUrl,fname}}) => {
+const Navbar = (props) => {
+    const { auth, profileData:{photoUrl,fname}} = props;
     const [friendNotifictaion,
         setfriendNotifictaion] = useState(false);
     const [messageNotifictaions,
@@ -14,11 +17,17 @@ const Navbar = ({ auth, profileData:{photoUrl,fname}}) => {
     if(!auth){
         return null;
     }
+    const goToProfileSetting = () => {
+        props.history.push('/profile');
+    }
+    const goToHome = () => {
+        props.history.push('/');
+    }
     return (
         <section className="sec-navbar">
             <nav className="navbar">
                 <div className="flex-item icon">
-                    <i className="fab fa-facebook-square"></i>
+                    <i className="fab fa-facebook-square" onClick={goToHome}></i>
                 </div>
                 <div className="flex-item search-bar">
                     <input type="text" name="search-bar" placeholder="Search"/>
@@ -30,14 +39,14 @@ const Navbar = ({ auth, profileData:{photoUrl,fname}}) => {
                     <div className="tab-container">
 
                         <div className="ul">
-                            <div className="tab">
+                            <div className="tab" onClick={goToProfileSetting}>
                                 {
                                     photoUrl ? <div className="user-icon" style={{backgroundImage:`url("${photoUrl}")`,backgroundSize:'cover',backgroundRepeat:'no-repeat'}} ></div>:null
                                 }
                                 {fname}
                                 <div className="line"></div>
                             </div>
-                            <div className="tab">Home
+                            <div className="tab" onClick={goToHome}>Home
                                 <div className="line"></div>
 
                             </div>
@@ -135,4 +144,4 @@ export const mapState = state => {
     }
 }
 
-export default connect(mapState)(Navbar);
+export default compose(withRouter,connect(mapState))(Navbar);

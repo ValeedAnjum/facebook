@@ -10,14 +10,18 @@ const SinglePost = ({post, likePost, unlikePost}) => {
         userimage,
         userstory,
         isLiked,
-        id
+        id,
+        likes
     } = post;
     const [localIsLiked,
         setlocalIsLiked] = useState(isLiked);
-
+    const [displayComments, setdisplayComments] = useState(false);
     const likeHandler = isLiked => {
         setlocalIsLiked(true);
         likePost(post);
+    }
+    const displayCommentsHandler = () => {
+        setdisplayComments(true);
     }
     const unLikeHandler = isLiked => {
         setlocalIsLiked(false);
@@ -146,12 +150,13 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                             </button>
                         </Fragment>
 }
-                    <button className="comment">Comment</button>
+                    <button className={`${displayComments ? "is-liked":null} comment`} onClick={displayCommentsHandler}>Comment</button>
                     <button className="share">Share</button>
                 </div>
             </div>
-            <Comments postId={id} />
-            
+            {
+                displayComments ? <Comments postId={id} />:null
+            }
         </div>
     )
 }

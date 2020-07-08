@@ -32,10 +32,10 @@ const SingleComment = ({comment, postId, commentreply, addCommentLocally}) => {
                 </div>
                 <div className="like-reply-btn-and-time">
                     <button>Like</button>
-                    {!commentreply
+                    {/* {!commentreply
                         ? <button onClick={commentReplyHandler}>Reply</button>
                         : null
-}
+} */}
                     <span>29m</span>
                 </div>
                 {postReplies

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const LaodingPosts = () => {
+const LoadingCommentsPlaceholder = () => {
     return (
-        <div className="post-loading-spinner-container">
+        <div className="loading-comments-placeholder">
             <div className="lds-ring">
                 <div></div>
                 <div></div>
@@ -13,4 +13,4 @@ const LaodingPosts = () => {
     )
 }
 
-export default LaodingPosts
+export default LoadingCommentsPlaceholder

@@ -35,6 +35,7 @@ body {
     top: -2px;
     font-size: 2em;
     color: white;
+    cursor: pointer;
 }
 .sec-navbar .search-bar {
     display: flex;
@@ -839,6 +840,14 @@ body {
     animation-name: singlecomment;
     animation-duration: 1s;
 }
+.main .posts-container .post .comments .loading-comments-placeholder {
+    position: relative;
+    height: 35px;
+    width: 100%;
+}
+.main .posts-container .post .comments .loading-comments-placeholder .lds-ring {
+    left: 50%;
+}
 /* animation fro single comment  */
 @keyframes singlecomment {
     from{
@@ -1104,6 +1113,37 @@ body {
     display: none;
 }
 
+/* ProfileSetting component  */
+.profile-setting {
+    margin-top: 46px;
+}
+.profile-setting .change-profile-conatiner {
+    width: 80%;
+    margin: auto;
+}
+.profile-setting .change-profile-conatiner .current-profile-picture {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+.profile-setting .change-profile-conatiner .current-profile-picture img {
+    width: 100%;
+    height: 100%;
+}
+.profile-setting .change-profile-conatiner .current-profile-picture .edit-btn-container {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+}
+.profile-setting .change-profile-conatiner .current-profile-picture .edit-btn-container button{
+    border: none;
+    padding: 10px 20px;
+    outline: none;
+}
+.profile-setting {
+    text-align: center;
+    color: black;
+}
 /*# sourceMappingURL=style.css.map */
 
 /* Spinner  */
