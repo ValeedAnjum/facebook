@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from  'react-redux';
 import { compose } from 'redux';
 import { OpenUploadProfilePicture } from '../../store/Actions/ModelActions';
-const ProfileSetting = ({OpenUploadProfilePicture,currentProfilePictute}) => {
-    return (
-        <div className="profile-setting">
+
+class ProfileSetting extends Component {
+    
+    render() {
+        const {OpenUploadProfilePicture,currentProfilePictute} = this.props;
+        return ( 
+            <div className="profile-setting">
             <div className="change-profile-conatiner">
                 <div className="current-profile-picture">
                     <img src={currentProfilePictute} />
@@ -17,9 +21,10 @@ const ProfileSetting = ({OpenUploadProfilePicture,currentProfilePictute}) => {
                 <h1 className="user-name">Valeed Anjum Siddiqui</h1>
             </div>
         </div>
-    )
+         );
+    }
 }
-
+ 
 const mapDispatch = dispatch => {
     return {
         OpenUploadProfilePicture:() => dispatch(OpenUploadProfilePicture())

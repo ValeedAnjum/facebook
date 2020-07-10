@@ -23,6 +23,9 @@ const Navbar = (props) => {
     const goToHome = () => {
         props.history.push('/');
     }
+    const goToUsers = () => {
+        props.history.push('/users');
+    }
     return (
         <section className="sec-navbar">
             <nav className="navbar">
@@ -50,7 +53,7 @@ const Navbar = (props) => {
                                 <div className="line"></div>
 
                             </div>
-                            <div className="tab">create
+                            <div className="tab" onClick={goToUsers}>Users
                                 <div className="line"></div>
                             </div>
                             <div className="tab friend-requests">

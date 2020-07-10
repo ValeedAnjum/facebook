@@ -31,7 +31,7 @@ class Posts extends Component {
     }
     loadNextPost = async() => {
         const {post} = this.props;
-        const lastPostId = post && post[post.length - 1].id;
+        const lastPostId = post && post.length>=1 && post[post.length - 1].id;
         const next = await this
             .props
             .fetchPost(lastPostId);
