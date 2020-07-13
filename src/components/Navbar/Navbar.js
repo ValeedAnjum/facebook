@@ -130,7 +130,7 @@ const Navbar = (props) => {
                                 <i className="fas fa-question-circle"></i>
                             </div>
                             <div className="tab">
-                                <i className="fas fa-sort-down"></i>
+                                Logout
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,30 @@ export const register = cred => {
                 .doc(userData.user.uid)
                 .set({fname, lname, email});
             console.log('Account Created');
+            //presence logic
+            var uid = firebase.auth().currentUser.uid;
+            var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+            // console.log(uid);
+            // console.log(userStatusDatabaseRef);
+            var isOfflineForDatabase = {
+                state: 'offline',
+                last_changed: firebase.database.ServerValue.TIMESTAMP,
+            };
+            
+            var isOnlineForDatabase = {
+                state: 'online',
+                last_changed: firebase.database.ServerValue.TIMESTAMP,
+            };
+            firebase.database().ref('.info/connected').on('value', function(snapshot) {
+                if (snapshot.val() == false) {
+                    return;
+                };
+                userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+                    console.log('OnDis');
+                    userStatusDatabaseRef.set(isOnlineForDatabase);
+                });
+            });
+            //end presend logic
         } catch (err) {
             console.log(err.message);
         }
@@ -23,9 +47,42 @@ export const logIn = cred => {
         const firebase = getFirebase();
         const {email, password} = cred;
         try {
-            const res = await firebase
+            await firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password);
+            //presence logic
+            var uid = firebase
+                .auth()
+                .currentUser
+                .uid;
+            var userStatusDatabaseRef = firebase
+                .database()
+                .ref('/status/' + uid);
+            var isOfflineForDatabase = {
+                state: 'offline',
+                last_changed: firebase.database.ServerValue.TIMESTAMP
+            };
+
+            var isOnlineForDatabase = {
+                state: 'online',
+                last_changed: firebase.database.ServerValue.TIMESTAMP
+            };
+            firebase
+                .database()
+                .ref('.info/connected')
+                .on('value', function (snapshot) {
+                    if (snapshot.val() == false) {
+                        return;
+                    };
+                    userStatusDatabaseRef
+                        .onDisconnect()
+                        .set(isOfflineForDatabase)
+                        .then(function () {
+                            console.log('OnDis');
+                            userStatusDatabaseRef.set(isOnlineForDatabase);
+                        });
+                });
+            //end presend logic
         } catch (err) {
             console.log(err.message);
         }
@@ -89,4 +146,3 @@ export const uploadProfilePicture = file => {
         })
     }
 }
-
