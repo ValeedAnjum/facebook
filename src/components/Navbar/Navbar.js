@@ -1,20 +1,24 @@
 import React, {useState, Fragment} from 'react'
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import MessageListNotifictaion from './MessageListNotifictaion';
 import NotificationList from './NotificationList';
-import { withRouter, NavLink } from 'react-router-dom';
 
 const Navbar = (props) => {
-    const { auth, profileData:{photoUrl,fname}} = props;
+    const {
+        auth,
+        profileData: {
+            photoUrl,
+            fname
+        }
+    } = props;
     const [friendNotifictaion,
         setfriendNotifictaion] = useState(false);
     const [messageNotifictaions,
         setMessageNotifictaions] = useState(false);
     const [Notification,
         setNotificationList] = useState(false);
-    if(!auth){
+    if (!auth) {
         return null;
     }
     return (
@@ -33,21 +37,30 @@ const Navbar = (props) => {
                     <div className="tab-container">
 
                         <div className="ul">
-                            <div className="tab" >
+                            <div className="tab">
+                                {photoUrl
+                                    ? <div
+                                            className="user-icon"
+                                            style={{
+                                            backgroundImage: `url("${photoUrl}")`,
+                                            backgroundSize: 'cover',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}></div>
+                                    : null
+}
                                 {
-                                    photoUrl ? <div className="user-icon" style={{backgroundImage:`url("${photoUrl}")`,backgroundSize:'cover',backgroundRepeat:'no-repeat'}} ></div>:null
+                                    fname ? fname:<h6>Loading</h6>
                                 }
-                                {fname}
                                 <div className="line"></div>
                             </div>
-                            <div className="tab friend-requests">
-                                <i
-                                    className="fas fa-user-friends"
-                                    onClick={() => {
-                                    setfriendNotifictaion(!friendNotifictaion);
-                                    setMessageNotifictaions(false);
-                                    setNotificationList(false)
-                                }}></i>
+                            <div
+                                className="tab friend-requests"
+                                onClick={() => {
+                                setfriendNotifictaion(!friendNotifictaion);
+                                setMessageNotifictaions(false);
+                                setNotificationList(false)
+                            }}>
+                                <i className="fas fa-user-friends"></i>
                                 {friendNotifictaion
                                     ? <Fragment>
                                             <div
@@ -62,14 +75,14 @@ const Navbar = (props) => {
                                         </Fragment>
                                     : null}
                             </div>
-                            <div className="tab messages">
-                                <i
-                                    className="fab fa-facebook-messenger"
-                                    onClick={() => {
-                                    setMessageNotifictaions(!messageNotifictaions);
-                                    setNotificationList(false);
-                                    setfriendNotifictaion(false)
-                                }}></i>
+                            <div
+                                className="tab messages"
+                                onClick={() => {
+                                setMessageNotifictaions(!messageNotifictaions);
+                                setNotificationList(false);
+                                setfriendNotifictaion(false)
+                            }}>
+                                <i className="fab fa-facebook-messenger"></i>
                                 {messageNotifictaions
                                     ? <Fragment>
                                             <div
@@ -84,14 +97,14 @@ const Navbar = (props) => {
                                         </Fragment>
                                     : null}
                             </div>
-                            <div className="tab notification">
-                                <i
-                                    className="fas fa-bell"
-                                    onClick={() => {
-                                    setNotificationList(!Notification);
-                                    setMessageNotifictaions(false);
-                                    setfriendNotifictaion(false)
-                                }}></i>
+                            <div
+                                className="tab notification"
+                                onClick={() => {
+                                setNotificationList(!Notification);
+                                setMessageNotifictaions(false);
+                                setfriendNotifictaion(false)
+                            }}>
+                                <i className="fas fa-bell"></i>
                                 <div className="notification-counter">
                                     1
                                 </div>
@@ -125,10 +138,7 @@ const Navbar = (props) => {
 }
 
 export const mapState = state => {
-    return {
-        auth:state.firebase.auth.uid,
-        profileData:state.firebase.profile
-    }
+    return {auth: state.firebase.auth.uid, profileData: state.firebase.profile}
 }
 
-export default compose(withRouter,connect(mapState))(Navbar);
+export default connect(mapState)(Navbar);
