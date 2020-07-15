@@ -11,7 +11,9 @@ class ProfileSetting extends Component {
             <div className="profile-setting">
             <div className="change-profile-conatiner">
                 <div className="current-profile-picture">
-                    <img src={currentProfilePictute} />
+                    {
+                        currentProfilePictute ? <img src={currentProfilePictute} />:<h1>Loading Picture</h1>
+                    }
                     <div className="edit-btn-container">
                         <button onClick={OpenUploadProfilePicture}>
                             <i class="fas fa-camera"></i> Change Photo

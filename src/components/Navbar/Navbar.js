@@ -17,20 +17,11 @@ const Navbar = (props) => {
     if(!auth){
         return null;
     }
-    const goToProfileSetting = () => {
-        props.history.push('/profile');
-    }
-    const goToHome = () => {
-        props.history.push('/');
-    }
-    const goToUsers = () => {
-        props.history.push('/users');
-    }
     return (
         <section className="sec-navbar">
             <nav className="navbar">
                 <div className="flex-item icon">
-                    <i className="fab fa-facebook-square" onClick={goToHome}></i>
+                    <i className="fab fa-facebook-square"></i>
                 </div>
                 <div className="flex-item search-bar">
                     <input type="text" name="search-bar" placeholder="Search"/>
@@ -42,18 +33,11 @@ const Navbar = (props) => {
                     <div className="tab-container">
 
                         <div className="ul">
-                            <div className="tab" onClick={goToProfileSetting}>
+                            <div className="tab" >
                                 {
                                     photoUrl ? <div className="user-icon" style={{backgroundImage:`url("${photoUrl}")`,backgroundSize:'cover',backgroundRepeat:'no-repeat'}} ></div>:null
                                 }
                                 {fname}
-                                <div className="line"></div>
-                            </div>
-                            <div className="tab" onClick={goToHome}>Home
-                                <div className="line"></div>
-
-                            </div>
-                            <div className="tab" onClick={goToUsers}>Users
                                 <div className="line"></div>
                             </div>
                             <div className="tab friend-requests">

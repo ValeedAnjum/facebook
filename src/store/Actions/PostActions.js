@@ -9,7 +9,7 @@ export const fetchPost = lastPostId => {
             .auth()
             .currentUser
             .uid;
-        dispatch({type: 'FETCH_POST_START'});
+        dispatch({type: 'FETCH_POST_START',payload:[]});
         try {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
