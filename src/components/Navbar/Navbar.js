@@ -1,7 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
-import MessageListNotifictaion from './MessageListNotifictaion';
 import NotificationList from './NotificationList';
 
 const Navbar = (props) => {
@@ -75,28 +74,7 @@ const Navbar = (props) => {
                                         </Fragment>
                                     : null}
                             </div>
-                            <div
-                                className="tab messages"
-                                onClick={() => {
-                                setMessageNotifictaions(!messageNotifictaions);
-                                setNotificationList(false);
-                                setfriendNotifictaion(false)
-                            }}>
-                                <i className="fab fa-facebook-messenger"></i>
-                                {messageNotifictaions
-                                    ? <Fragment>
-                                            <div
-                                                className="willstyleitlater"
-                                                style={{
-                                                position: 'absolute',
-                                                marginTop: '12px',
-                                                left: '0'
-                                            }}>
-                                                <MessageListNotifictaion/>
-                                            </div>
-                                        </Fragment>
-                                    : null}
-                            </div>
+                            
                             <div
                                 className="tab notification"
                                 onClick={() => {
