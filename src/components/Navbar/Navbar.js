@@ -2,6 +2,7 @@ import React, {useState, Fragment} from 'react'
 import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import NotificationList from './NotificationList';
+import { logOut } from '../../store/Actions/UserActions';
 
 const Navbar = (props) => {
     const {
@@ -9,7 +10,8 @@ const Navbar = (props) => {
         profileData: {
             photoUrl,
             fname
-        }
+        },
+        logOut
     } = props;
     const [friendNotifictaion,
         setfriendNotifictaion] = useState(false);
@@ -101,10 +103,7 @@ const Navbar = (props) => {
                                     : null}
                                 <div className="line"></div>
                             </div>
-                            <div className="tab">
-                                <i className="fas fa-question-circle"></i>
-                            </div>
-                            <div className="tab">
+                            <div className="tab" onClick={logOut}>
                                 Logout
                             </div>
                         </div>
@@ -118,5 +117,9 @@ const Navbar = (props) => {
 export const mapState = state => {
     return {auth: state.firebase.auth.uid, profileData: state.firebase.profile}
 }
-
-export default connect(mapState)(Navbar);
+export const mapDispatch = dispatch => {
+    return {
+        logOut:() => dispatch(logOut())
+    }
+}
+export default connect(mapState,mapDispatch)(Navbar);

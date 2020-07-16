@@ -47,9 +47,6 @@ class Posts extends Component {
             this.setState({morePosts: false});
         }
     }
-    componentWillUnmount(){
-        this.props.cancelFetching();
-    }
     render() {
         window.addEventListener('scroll', this.lazyLoader);
         const {loadedPosts} = this.state;
@@ -79,7 +76,6 @@ class Posts extends Component {
 }
 
 const mapState = state => {
-    // console.log(state);
     return {post: state.PostReducer.post}
 }
 const mapDispatch = dispatch => {
@@ -87,8 +83,7 @@ const mapDispatch = dispatch => {
         fetchPost: lastPostId => dispatch(fetchPost(lastPostId)),
         logOut:() => dispatch(logOut()),
         likePost:post => dispatch(likePost(post)),
-        unlikePost:post => dispatch(unlikePost(post)),
-        cancelFetching:() => dispatch({type:'FETCH_POST_START',payload:[]})
+        unlikePost:post => dispatch(unlikePost(post))
     }
 }
 
