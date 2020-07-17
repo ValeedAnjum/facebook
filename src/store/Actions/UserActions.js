@@ -8,11 +8,6 @@ export const register = cred => {
             const userData = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password);
-            await firestore
-                .collection('users')
-                .doc(userData.user.uid)
-                .set({fname, lname, email,photoUrl:''});
-            console.log('Account Created');
             //presence logic
             var uid = firebase.auth().currentUser.uid;
             var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
@@ -37,6 +32,12 @@ export const register = cred => {
                 });
             });
             //end presend logic
+            await firestore
+                .collection('users')
+                .doc(userData.user.uid)
+                .set({fname, lname, email,photoUrl:''});
+            console.log('Account Created');
+            
         } catch (err) {
             console.log(err.message);
         }
@@ -47,8 +48,7 @@ export const register = cred => {
 export const logIn = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
-        const {email, password} = cred;
-        
+        const {email, password} = cred;       
         try {
             await firebase
                 .auth()
@@ -70,21 +70,23 @@ export const logIn = cred => {
                    return;
                };
                userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-                   console.log('OnDis');
                    userStatusDatabaseRef.set(isOnlineForDatabase);
                });
            });
-           //end presend logic
+           //end presence logic
         } catch (err) {
             console.log(err.message);
         }
     }
 }
 
+
+
 export const logOut = () => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         try {
+            setPresenceOffline();
             await firebase
                 .auth()
                 .signOut();
@@ -138,3 +140,38 @@ export const uploadProfilePicture = file => {
         })
     }
 }
+
+
+//User Presence 
+export const setPresenceOffline = async () => {
+    //set user status to offline
+    const uid = firebase.auth().currentUser.uid;
+    const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+    const isOfflineForDatabase = {
+        state: 'offline',
+        last_changed: firebase.database.ServerValue.TIMESTAMP,
+    };
+    try {
+        await userStatusDatabaseRef.set(isOfflineForDatabase);
+    } catch (error) {
+        console.log(error.message);
+    }
+    //set user status to offline
+}
+
+export const setPresenceOnline = async () => {
+    //set user status to Online
+    const uid = firebase.auth().currentUser.uid;
+    const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+    const isOnlineForDatabase = {
+        state: 'online',
+        last_changed: firebase.database.ServerValue.TIMESTAMP,
+    };
+    try {
+        await userStatusDatabaseRef.set(isOnlineForDatabase);
+    } catch (error) {
+        console.log(error.message);
+    }
+    //set user status to Online
+}
+//User Presence
