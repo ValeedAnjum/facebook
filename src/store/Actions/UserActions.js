@@ -9,29 +9,42 @@ export const register = cred => {
                 .auth()
                 .createUserWithEmailAndPassword(email, password);
             //presence logic
-            var uid = firebase.auth().currentUser.uid;
-            var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
-            // console.log(uid);
-            // console.log(userStatusDatabaseRef);
-            var isOfflineForDatabase = {
-                state: 'offline',
-                last_changed: firebase.database.ServerValue.TIMESTAMP,
-            };
+            // var uid = firebase.auth().currentUser.uid;
+            // var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+            // // console.log(uid);
+            // // console.log(userStatusDatabaseRef);
+            // var isOfflineForDatabase = {
+            //     state: 'offline',
+            //     last_changed: firebase.database.ServerValue.TIMESTAMP,
+            // };
             
-            var isOnlineForDatabase = {
-                state: 'online',
-                last_changed: firebase.database.ServerValue.TIMESTAMP,
-            };
-            firebase.database().ref('.info/connected').on('value', function(snapshot) {
-                if (snapshot.val() == false) {
-                    return;
-                };
-                userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-                    console.log('OnDis');
-                    userStatusDatabaseRef.set(isOnlineForDatabase);
-                });
-            });
+            // var isOnlineForDatabase = {
+            //     state: 'online',
+            //     last_changed: firebase.database.ServerValue.TIMESTAMP,
+            // };
+            // firebase.database().ref('.info/connected').on('value', function(snapshot) {
+            //     if (snapshot.val() == false) {
+            //         return;
+            //     };
+            //     userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+            //         console.log('OnDis');
+            //         userStatusDatabaseRef.set(isOnlineForDatabase);
+            //     });
+            // });
             //end presend logic
+                //set user status to Online
+                const uid = firebase.auth().currentUser.uid;
+                const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+                const isOnlineForDatabase = {
+                    state: 'online',
+                    last_changed: firebase.database.ServerValue.TIMESTAMP,
+                };
+                try {
+                    await userStatusDatabaseRef.set(isOnlineForDatabase);
+                } catch (error) {
+                    console.log(error.message);
+                }
+                //set user status to Online
             await firestore
                 .collection('users')
                 .doc(userData.user.uid)
@@ -54,26 +67,39 @@ export const logIn = cred => {
                 .auth()
                 .signInWithEmailAndPassword(email, password);
            //presence logic
-           var uid = firebase.auth().currentUser.uid;
-           var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
-           var isOfflineForDatabase = {
-               state: 'offline',
-               last_changed: firebase.database.ServerValue.TIMESTAMP,
-           };
+        //    var uid = firebase.auth().currentUser.uid;
+        //    var userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+        //    var isOfflineForDatabase = {
+        //        state: 'offline',
+        //        last_changed: firebase.database.ServerValue.TIMESTAMP,
+        //    };
            
-           var isOnlineForDatabase = {
-               state: 'online',
-               last_changed: firebase.database.ServerValue.TIMESTAMP,
-           };
-           firebase.database().ref('.info/connected').on('value', function(snapshot) {
-               if (snapshot.val() == false) {
-                   return;
-               };
-               userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
-                   userStatusDatabaseRef.set(isOnlineForDatabase);
-               });
-           });
+        //    var isOnlineForDatabase = {
+        //        state: 'online',
+        //        last_changed: firebase.database.ServerValue.TIMESTAMP,
+        //    };
+        //    firebase.database().ref('.info/connected').on('value', function(snapshot) {
+        //        if (snapshot.val() == false) {
+        //            return;
+        //        };
+        //        userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+        //            userStatusDatabaseRef.set(isOnlineForDatabase);
+        //        });
+        //    });
            //end presence logic
+        //set user status to Online
+        const uid = firebase.auth().currentUser.uid;
+        const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+        const isOnlineForDatabase = {
+            state: 'online',
+            last_changed: firebase.database.ServerValue.TIMESTAMP,
+        };
+        try {
+            await userStatusDatabaseRef.set(isOnlineForDatabase);
+        } catch (error) {
+            console.log(error.message);
+        }
+        //set user status to Online
         } catch (err) {
             console.log(err.message);
         }
@@ -86,7 +112,19 @@ export const logOut = () => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         try {
-            setPresenceOffline();
+            //set user status to offline
+            const uid = firebase.auth().currentUser.uid;
+            const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+            const isOfflineForDatabase = {
+                state: 'offline',
+                last_changed: firebase.database.ServerValue.TIMESTAMP,
+            };
+            try {
+                await userStatusDatabaseRef.set(isOfflineForDatabase);
+            } catch (error) {
+                console.log(error.message);
+            }
+            //set user status to offline
             await firebase
                 .auth()
                 .signOut();
@@ -143,35 +181,39 @@ export const uploadProfilePicture = file => {
 
 
 //User Presence 
-export const setPresenceOffline = async () => {
-    //set user status to offline
-    const uid = firebase.auth().currentUser.uid;
-    const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
-    const isOfflineForDatabase = {
-        state: 'offline',
-        last_changed: firebase.database.ServerValue.TIMESTAMP,
-    };
-    try {
-        await userStatusDatabaseRef.set(isOfflineForDatabase);
-    } catch (error) {
-        console.log(error.message);
+export const setPresenceOffline =  () => {
+    return async ( dispatch , getState ) => {
+        //set user status to offline
+        const uid = firebase.auth().currentUser.uid;
+        const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+        const isOfflineForDatabase = {
+            state: 'offline',
+            last_changed: firebase.database.ServerValue.TIMESTAMP,
+        };
+        try {
+            await userStatusDatabaseRef.set(isOfflineForDatabase);
+        } catch (error) {
+            console.log(error.message);
+        }
+        //set user status to offline
     }
-    //set user status to offline
 }
 
-export const setPresenceOnline = async () => {
-    //set user status to Online
-    const uid = firebase.auth().currentUser.uid;
-    const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
-    const isOnlineForDatabase = {
-        state: 'online',
-        last_changed: firebase.database.ServerValue.TIMESTAMP,
-    };
-    try {
-        await userStatusDatabaseRef.set(isOnlineForDatabase);
-    } catch (error) {
-        console.log(error.message);
+export const setPresenceOnline = () => {
+    return async (dispatch,getState) => {
+        //set user status to Online
+        const uid = firebase.auth().currentUser.uid;
+        const userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+        const isOnlineForDatabase = {
+            state: 'online',
+            last_changed: firebase.database.ServerValue.TIMESTAMP,
+        };
+        try {
+            await userStatusDatabaseRef.set(isOnlineForDatabase);
+        } catch (error) {
+            console.log(error.message);
+        }
+        //set user status to Online
     }
-    //set user status to Online
 }
 //User Presence
