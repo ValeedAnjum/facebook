@@ -34,7 +34,6 @@ exports.onUserStatusChanged = functions
 
         // Otherwise, we convert the last_changed field to a Date
         eventStatus.last_changed = new Date(eventStatus.last_changed);
-
         // ... and write it to Firestore.
         return userStatusFirestoreRef.set(eventStatus);
     });
