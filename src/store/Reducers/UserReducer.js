@@ -1,7 +1,8 @@
 const intState = {
     uploading:false,
     uploadingPercentage:null,
-    uploadingError:null
+    uploadingError:null,
+    onlineUsers:[]
 }
 
 export const UserReducer = ( state = intState , action ) => {
@@ -12,6 +13,11 @@ export const UserReducer = ( state = intState , action ) => {
             return {...state,uploading:false};
         case 'UploadingProgress':
             return {...state,uploadingPercentage:action.payload}
+        case 'FTECH_ONLINE_USERS_START':
+            return {...state,onlineUsers:[]}
+        case 'FTECH_ONLINE_USERS_SUCCESS':
+            return {...state,onlineUsers:action.payload}
+            
         default:
             return state;
     }

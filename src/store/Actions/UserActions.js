@@ -1,4 +1,5 @@
 import firebase from '../../config/config';
+import { getFirebase } from 'react-redux-firebase';
 export const register = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
@@ -8,25 +9,7 @@ export const register = cred => {
             const userData = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password);
-            //set user status to Online
-            const uid = firebase
-                .auth()
-                .currentUser
-                .uid;
-            const userStatusDatabaseRef = firebase
-                .database()
-                .ref('/status/' + uid);
-            const isOnlineForDatabase = {
-                state: 'online',
-                last_changed: firebase.database.ServerValue.TIMESTAMP,
-                firstname:fname
-            };
-            try {
-                await userStatusDatabaseRef.set(isOnlineForDatabase);
-            } catch (error) {
-                console.log(error.message);
-            }
-            //set user status to Online
+            
             await firestore
                 .collection('users')
                 .doc(userData.user.uid)
@@ -47,24 +30,6 @@ export const logIn = cred => {
             await firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password);
-            //set user status to Online
-            const uid = firebase
-                .auth()
-                .currentUser
-                .uid;
-            const userStatusDatabaseRef = firebase
-                .database()
-                .ref('/status/' + uid);
-            const isOnlineForDatabase = {
-                state: 'online',
-                last_changed: firebase.database.ServerValue.TIMESTAMP
-            };
-            try {
-                await userStatusDatabaseRef.set(isOnlineForDatabase);
-            } catch (error) {
-                console.log(error.message);
-            }
-            //set user status to Online
         } catch (err) {
             console.log(err.message);
         }
@@ -194,3 +159,28 @@ export const setPresenceOnline = () => {
     }
 }
 //User Presence
+
+export const getOnlineUser = () => {
+    return async ( dispatch , getState, {getFirebase,getFirestore}) => {
+        const firestore = getFirestore();
+        const RefToStatus = firestore.collection('status').orderBy('last_changed','desc');
+        const RefToUserData = firestore.collection('users');
+        const query = RefToStatus.where('state','==','online');
+        dispatch({type:'FTECH_ONLINE_USERS_START'});
+        const querySnap = await query.get();
+        if (querySnap.docs.length === 0) {
+            return querySnap;
+        }
+        let onlineUsersIds = [];
+        for(let i = 0 ; i < querySnap.docs.length ; i++) {
+            onlineUsersIds.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id});
+        }
+        let onlineUsers = [];
+        for(let i = 0; i< onlineUsersIds.length;i++){
+            let query = RefToUserData.doc(onlineUsersIds[i].id);
+            let querySnap = await query.get();
+            onlineUsers.push({...querySnap.data(),id:onlineUsersIds[i].id})
+        }
+        dispatch({type:'FTECH_ONLINE_USERS_SUCCESS',payload:onlineUsers});
+    }
+}
