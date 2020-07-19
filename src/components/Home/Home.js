@@ -30,10 +30,10 @@ const Home = ({profileData: {
             <section className="main">
                 <div className="user-navbar-posts">
                     <Sidebar photoUrl={photoUrl}/>
-                    {/* <Posts photoUrl={photoUrl}/> */}
+                    <Posts photoUrl={photoUrl}/>
                 </div>
                 <div className="online-user">
-                    <ListOfOnlineUsers/>
+                    {/* <ListOfOnlineUsers/> */}
                 </div>
             </section>
         </Fragment>

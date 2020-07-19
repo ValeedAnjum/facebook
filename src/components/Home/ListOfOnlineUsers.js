@@ -1,20 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import {connect} from 'react-redux';
 import {getOnlineUser} from '../../store/Actions/UserActions';
-const ListOfOnlineUsers = ({getOnlineUser, onlineUsers}) => {
-    const [localOnlineUsers,
-        setlocalOnlineUsers] = useState(undefined);
+const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}}) => {
     useEffect(() => {
         async function getOnlineUsers() {
-            console.log('a');
             await getOnlineUser()
-            console.log('b');
         }
         setTimeout(function () {
             getOnlineUsers();
-        }, 1000 * 2)
+        }, 3000)
     }, [])
-
     return (
         <div className="list-of-users">
             {onlineUsers && onlineUsers.length >= 1 && onlineUsers.map(user => {
@@ -26,14 +21,25 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers}) => {
                     </div>
                 );
             })
-}
+        }
+        {
+            onlineUsers && onlineUsers.length == 0 && fname && photoUrl && 
+            <Fragment>
+                <div className="single-user">
+                    <img src={photoUrl} alt="online-img"/>
+                    <span>{fname}</span>
+                    <div className="online"></div>
+                </div>
+                <h6 style={{textAlign:'center'}}>Loading</h6>
+            </Fragment>
+        }       
         </div>
     )
 }
 
 const mapState = state => {
-    // console.log(state.User.onlineUsers);
-    return {onlineUsers: state.User.onlineUsers}
+    // console.log(state.firebase.profile);
+    return {onlineUsers: state.User.onlineUsers,profile:state.firebase.profile}
 }
 
 const mapDispatch = dispatch => {
