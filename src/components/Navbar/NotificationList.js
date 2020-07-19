@@ -1,14 +1,17 @@
 import React, {useEffect, useState, Fragment} from 'react'
-
-const NotificationList = () => {
+import {connect} from 'react-redux';
+import {compose} from 'redux';
+import {firestoreConnect} from 'react-redux-firebase';
+const NotificationList = ({notifications}) => {
     const [loading,
-        setLoading] = useState(false);
+        setLoading] = useState(true);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-    })
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(true);
+    //     }, 500);
+    // })
+    console.log(notifications);
     return (
         <div className="dropdown">
             {loading
@@ -18,7 +21,6 @@ const NotificationList = () => {
                             <span>Settings</span>
                             <span>Mark All as Read</span>
                         </div>
-
                         <p className="notification-heading-text">new</p>
                         <div className="single-notification">
                             <div className="notifictaion-user-image">
@@ -26,73 +28,33 @@ const NotificationList = () => {
                             </div>
                             <div className="notification-text">
                                 <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
+                                    <span>
+                                        Valeed Anjum
+                                    </span>
+                                    created a new post
                                 </p>
                             </div>
                         </div>
-                        <div className="single-notification">
-                            <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
-                            </div>
-                            <div className="notification-text">
-                                <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
-                                </p>
-                            </div>
-                        </div>
+                        {notifications && notifications.map(singleNotific => {
+                            return (
+                                <div className="single-notification" key={singleNotific.id}>
+                                    <div className="notifictaion-user-image">
+                                        <img src="/style/images/user.jpg" alt="notification-user-img"/>
+                                    </div>
+                                    <div className="notification-text">
+                                        <p>
+                                            <span>
+                                                {singleNotific.name}
+                                            </span>
+                                            {singleNotific.message}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })
+}
                         <p className="notification-heading-text">earlier</p>
-                        <div className="single-notification">
-                            <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
-                            </div>
-                            <div className="notification-text">
-                                <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="single-notification">
-                            <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
-                            </div>
-                            <div className="notification-text">
-                                <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="single-notification">
-                            <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
-                            </div>
-                            <div className="notification-text">
-                                <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="single-notification">
-                            <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
-                            </div>
-                            <div className="notification-text">
-                                <p>
-                                    <span>Freelancing Funda</span>
-                                    has a new photo from
-                                    <span>Valeed Anjum</span>
-                                </p>
-                            </div>
-                        </div>
+
                         <div className="single-notification">
                             <div className="notifictaion-user-image">
                                 <img src="/style/images/user.jpg" alt="notification-user-img"/>
@@ -119,4 +81,14 @@ const NotificationList = () => {
     )
 }
 
-export default NotificationList;
+const mapState = state => {
+    // console.log(state.firestore.ordered.notification);
+    return {notifications: state.firestore.ordered.notification}
+}
+
+export default compose(connect(mapState), firestoreConnect([
+    {
+        collection: 'notification',
+        orderBy: ['time', 'desc']
+    }
+]))(NotificationList);

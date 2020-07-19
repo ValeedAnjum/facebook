@@ -1,6 +1,5 @@
 import firebase from '../../config/config';
-import { firestore } from 'firebase';
-
+import { v4 as uuidv4 } from 'uuid';
 export const fetchPost = lastPostId => {
     return async(dispatch, getState, {getFirebase}) => {
         const firestore = firebase.firestore();
@@ -55,6 +54,7 @@ export const fetchPost = lastPostId => {
 
 export const addPost = (file, userStory) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
+        // console.log(uuidv4());
         const isImage = file && file.indexOf('image') > 1;
         const firebase = getFirebase();
         const firestore = getFirestore();
@@ -89,10 +89,10 @@ export const addPost = (file, userStory) => {
         var storageRef = isImage
             ? firebase
                 .storage()
-                .ref(`post-pictures/${id}`)
+                .ref(`post-pictures/${uuidv4()}`)
             : firebase
                 .storage()
-                .ref(`post-videos/${id}`);
+                .ref(`post-videos/${uuidv4()}`);
         var uploadTask = storageRef.putString(file, 'data_url');
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

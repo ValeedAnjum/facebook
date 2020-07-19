@@ -1,6 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import Comments from './Comments';
-import CommentInput from './CommentInput';
+import SinglePostOptions from './SinglePostOptions';
 
 const SinglePost = ({post, likePost, unlikePost}) => {
     const {
@@ -16,6 +16,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
     const [localIsLiked,
         setlocalIsLiked] = useState(isLiked);
     const [displayComments, setdisplayComments] = useState(false);
+    const [options, setOptions] = useState(false);
     const likeHandler = isLiked => {
         setlocalIsLiked(true);
         likePost(post);
@@ -41,68 +42,13 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                         <i className="fas fa-globe-asia"></i>
                     </span>
                 </div>
-                <div className="three-dots">
+                <div className="three-dots" onClick={() => setOptions(!options)}>
                     <div className="dot-1"></div>
                     <div className="dot-2"></div>
                     <div className="dot-3"></div>
-                    <div className="options-container">
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Save Post</div>
-                                <div className="description">Add this post to your saved items</div>
-                            </div>
-                        </div>
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Turn on notification for this post</div>
-                                <div className="description">Turn on notification</div>
-
-                            </div>
-                        </div>
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Embed</div>
-                                <div className="description">Embed</div>
-
-                            </div>
-                        </div>
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Snooze Fabiha for 30 days</div>
-                                <div className="description">temporarily stop seeing posts</div>
-                            </div>
-                        </div>
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Unfollow Fabiha</div>
-                                <div className="description">Stop seeing posts but stay friends</div>
-                            </div>
-                        </div>
-                        <div className="option">
-                            <div className="option-icon">
-                                <i className="fas fa-sync-alt"></i>
-                            </div>
-                            <div className="option-name-and-description">
-                                <div className="name">Find support or report post</div>
-                                <div className="description">I'm concerned about this post</div>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        options ? <SinglePostOptions />:null
+                    }
                 </div>
             </div>
             <div className="user-content">

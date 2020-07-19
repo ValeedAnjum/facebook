@@ -20,7 +20,8 @@
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "revalidate": "^1.2.0",
-    "thunk": "0.0.1"
+    "thunk": "0.0.1",
+    "uuid": "^8.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

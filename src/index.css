@@ -465,6 +465,7 @@ body {
     color: #1d2129;
     width: 45ch;
     overflow: hidden;
+    text-transform: none;
 }
 .sec-navbar .tab-container .ul .single-notification .notification-text span:nth-child(1) {
     font-weight: 500;
@@ -767,7 +768,6 @@ body {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(100, 100, 100, 0.4);
     border-radius: 2px;
-    display: none;
 }
 .main .posts-container .post .user-data .three-dots .options-container .option {
     display: flex;

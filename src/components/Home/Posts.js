@@ -64,11 +64,11 @@ class Posts extends Component {
                         })
 
                         : <LaodingPosts/>
-}
+                    }
                     {(LaodingPosts.length === 0 && this.state.morePosts)
                         ? <LaodingPosts/>
                         : <h4>There are no more posts</h4>
-}
+                    }
                 </div>
             </div>
         );
@@ -76,7 +76,9 @@ class Posts extends Component {
 }
 
 const mapState = state => {
-    return {post: state.PostReducer.post}
+
+    // return {post: state.PostReducer.post}
+    return {post: []}
 }
 const mapDispatch = dispatch => {
     return {
