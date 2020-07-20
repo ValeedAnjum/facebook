@@ -86,7 +86,7 @@ const Navbar = (props) => {
                             }}>
                                 <i className="fas fa-bell"></i>
                                 <div className="notification-counter">
-                                    1
+                                    2
                                 </div>
                                 {Notification
                                     ? <Fragment>
