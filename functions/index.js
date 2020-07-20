@@ -23,13 +23,13 @@ exports.onUserStatusChanged = functions
         return userStatusFirestoreRef.set(eventStatus);
     });
 
-
-const createPostNotification = (Notification => {
+const createNotification = (Notification => {
     return admin
-    .firestore()
-    .collection('notification')
-    .add(postNotification)
-    .then(res => console.log('Post created notification added',res)).catch(err => err.message);
+        .firestore()
+        .collection('notification')
+        .add(Notification)
+        .then(res => console.log('Post created notification added', res))
+        .catch(err => err.message);
 })
 exports.postCreated = functions
     .firestore
@@ -39,11 +39,28 @@ exports.postCreated = functions
         const postNotification = {
             notificationname: 'post-created-notification',
             name: `${post.name}`,
-            message: 'has created a new post',
+            message: 'created a new post',
             time: admin
                 .firestore
                 .FieldValue
                 .serverTimestamp()
         }
-        return createPostNotification(postNotification);
+        return createNotification(postNotification);
+    })
+
+exports.accountCreated = functions
+    .firestore
+    .document('users/{userId}')
+    .onCreate(doc => {
+        const user = doc.data();
+        const accountNotification = {
+            notificationname: 'account-created-notification',
+            name: `${user.fname} ${user.lname}`,
+            message: 'created a new account',
+            time: admin
+                .firestore
+                .FieldValue
+                .serverTimestamp()
+        }
+        return createNotification(accountNotification);
     })

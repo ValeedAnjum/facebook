@@ -76,9 +76,7 @@ class Posts extends Component {
 }
 
 const mapState = state => {
-
-    // return {post: state.PostReducer.post}
-    return {post: []}
+    return {post: state.PostReducer.post}
 }
 const mapDispatch = dispatch => {
     return {
