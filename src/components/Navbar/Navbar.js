@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import NotificationList from './NotificationList';
 import { logOut } from '../../store/Actions/UserActions';
+import PictureLoadingPlaceholder from './PictureLoadingPlaceholder';
 
 const Navbar = (props) => {
     const {
@@ -47,7 +48,7 @@ const Navbar = (props) => {
                                             backgroundSize: 'cover',
                                             backgroundRepeat: 'no-repeat'
                                         }}></div>
-                                    : null
+                                    : <PictureLoadingPlaceholder />
 }
                                 {
                                     fname ? fname:<h6>Loading</h6>
@@ -86,7 +87,7 @@ const Navbar = (props) => {
                             }}>
                                 <i className="fas fa-bell"></i>
                                 <div className="notification-counter">
-                                    2
+                                    1
                                 </div>
                                 {Notification
                                     ? <Fragment>

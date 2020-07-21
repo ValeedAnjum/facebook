@@ -1,7 +1,7 @@
 import React, {Component, useEffect, Fragment} from 'react'
 import {connect} from 'react-redux';
 import SingleComment from './SingleComment';
-import {fetchPostComments} from '../../store/Actions/PostActions';
+import {fetchPostComments} from '../../../store/Actions/PostActions';
 import CommentInput from './CommentInput';
 import LaodingPosts from './LaodingPosts';
 import LoadingCommentsPlaceholder from './LoadingCommentsPlaceholder';

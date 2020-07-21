@@ -1,8 +1,8 @@
 import React, {Fragment, useEffect} from 'react'
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
-import Sidebar from './Sidebar';
-import Posts from './Posts';
+import Sidebar from './Sidebar/Sidebar';
+import Posts from './Posts/Posts';
 import ListOfOnlineUsers from './ListOfOnlineUsers';
 import {OpenUploadProfilePicture} from '../../store/Actions/ModelActions';
 import { setPresenceOnline, setPresenceOffline } from '../../store/Actions/UserActions';

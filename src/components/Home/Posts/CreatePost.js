@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react'
 import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
-import { addPost } from '../../store/Actions/PostActions';
+import { addPost } from '../../../store/Actions/PostActions';
 const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
     const [image, setimage] = useState(null);
     const [video, setvideo] = useState(null);

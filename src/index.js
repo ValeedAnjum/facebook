@@ -5,9 +5,8 @@ import {reactReduxFirebase, getFirebase} from 'react-redux-firebase';
 import {reduxFirestore, getFirestore} from 'redux-firestore';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-
 import config from './config/config';
-
+import 'react-placeholder/lib/reactPlaceholder.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

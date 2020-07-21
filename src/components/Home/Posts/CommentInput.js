@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { addComment } from '../../store/Actions/PostActions';
-import { useState } from 'react';
+import { addComment } from '../../../store/Actions/PostActions';
 const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
     const [savingComment, setsavingComment] = useState(false);
     const [value,setValue] = useState("");

@@ -3,7 +3,7 @@ import SingleComment from './SingleComment';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { fetchCommentReplies } from '../../store/Actions/PostActions';
+import { fetchCommentReplies } from '../../../store/Actions/PostActions';
 const CommentsReplies = (props) => {
     const {commentId, postId, comments, fetchCommentReplies} = props;
     useEffect(() => {
