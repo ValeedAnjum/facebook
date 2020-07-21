@@ -163,6 +163,7 @@ export const setPresenceOnline = () => {
 export const getOnlineUser = () => {
     return async ( dispatch , getState, {getFirebase,getFirestore}) => {
         const firestore = getFirestore();
+        const userId = firebase.auth().currentUser.uid;
         const RefToStatus = firestore.collection('status').orderBy('last_changed','desc');
         const RefToUserData = firestore.collection('users');
         const query = RefToStatus.where('state','==','online');
@@ -175,12 +176,15 @@ export const getOnlineUser = () => {
         for(let i = 0 ; i < querySnap.docs.length ; i++) {
             onlineUsersIds.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id});
         }
-        let onlineUsers = [];
+        let onlineUsersWithCurrentUser = [];
         for(let i = 0; i< onlineUsersIds.length;i++){
             let query = RefToUserData.doc(onlineUsersIds[i].id);
             let querySnap = await query.get();
-            onlineUsers.push({...querySnap.data(),id:onlineUsersIds[i].id})
+            onlineUsersWithCurrentUser.push({...querySnap.data(),id:onlineUsersIds[i].id})
         }
+        let onlineUsers = onlineUsersWithCurrentUser.filter(user => {
+            return user.id != userId;
+        });
         dispatch({type:'FTECH_ONLINE_USERS_SUCCESS',payload:onlineUsers});
     }
 }

@@ -8,13 +8,20 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
         async function getOnlineUsers() {
             await getOnlineUser()
         }
-        setTimeout(function () {
-            getOnlineUsers();
-        }, 9000)
+        getOnlineUsers();
     }, [])
     
     return (
         <div className="list-of-users">
+
+            <div className="single-user">
+                    {
+                        photoUrl ? <img src={photoUrl} alt="online-img"/>:<UserImageLoadingPlaceholder />
+                    }
+                    <span>{fname}</span>
+                    <div className="online"></div>
+            </div>
+
             {onlineUsers && onlineUsers.length >= 1 && onlineUsers.map(user => {
                 return (
                     <div className="single-user" key={user.id}>
@@ -26,18 +33,10 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
                     </div>
                 );
             })
-        }
-        {
-            onlineUsers && onlineUsers.length == 0 && fname && photoUrl && 
-            <Fragment>
-                <div className="single-user">
-                    <img src={photoUrl} alt="online-img"/>
-                    <span>{fname}</span>
-                    <div className="online"></div>
-                </div>
-                <LoadingOnlineUsers />
-            </Fragment>
-        }       
+            }
+            {
+                onlineUsers && onlineUsers.length == 0 && <LoadingOnlineUsers />
+            }
         </div>
     )
 }
