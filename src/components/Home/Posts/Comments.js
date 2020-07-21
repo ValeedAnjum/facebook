@@ -1,9 +1,8 @@
-import React, {Component, useEffect, Fragment} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import SingleComment from './SingleComment';
 import {fetchPostComments} from '../../../store/Actions/PostActions';
 import CommentInput from './CommentInput';
-import LaodingPosts from './LaodingPosts';
 import LoadingCommentsPlaceholder from './LoadingCommentsPlaceholder';
 
 export class Comments extends Component {
@@ -34,6 +33,7 @@ export class Comments extends Component {
     }
     render() {
         const {fetchPostComments, postId, loadingComments} = this.props;
+        const { photoUrl } = this.props.profile;
         const {loadedComments} = this.state;
         return (
             <div className="comments">
@@ -49,7 +49,7 @@ export class Comments extends Component {
                     style={{textAlign:'center',color:'#606770'}}>No Comments</h4>
                 }
                 <div className="post-comment">
-                    <img src="style/images/user.jpg" alt="user-img"/>
+                    <img src={photoUrl} alt="user-img"/>
                     <CommentInput
                         postId={postId}
                         addCommentLocally={(message, commentId) => this.addCommentLocally(message, commentId)}/>

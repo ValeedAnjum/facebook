@@ -1,6 +1,8 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import {connect} from 'react-redux';
-import {getOnlineUser} from '../../store/Actions/UserActions';
+import {getOnlineUser} from '../../../store/Actions/UserActions';
+import LoadingOnlineUsers from './LoadingOnlineUsers';
+import UserImageLoadingPlaceholder from './UserImageLoadingPlaceholder';
 const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}}) => {
     useEffect(() => {
         async function getOnlineUsers() {
@@ -8,14 +10,17 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
         }
         setTimeout(function () {
             getOnlineUsers();
-        }, 3000)
+        }, 9000)
     }, [])
+    
     return (
         <div className="list-of-users">
             {onlineUsers && onlineUsers.length >= 1 && onlineUsers.map(user => {
                 return (
                     <div className="single-user" key={user.id}>
-                        <img src={user.photoUrl} alt="online-img"/>
+                        {
+                            (user.photoUrl === "") ? <UserImageLoadingPlaceholder />:<img src={user.photoUrl} alt="online-img"/>
+                        }
                         <span>{user.fname}</span>
                         <div className="online"></div>
                     </div>
@@ -30,7 +35,7 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
                     <span>{fname}</span>
                     <div className="online"></div>
                 </div>
-                <h6 style={{textAlign:'center'}}>Loading</h6>
+                <LoadingOnlineUsers />
             </Fragment>
         }       
         </div>

@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import SinglePost from './SinglePost';
 import LaodingPosts from './LaodingPosts';
-import { fetchPost, likePost, unlikePost } from '../../store/Actions/PostActions';
-import { logOut } from '../../store/Actions/UserActions';
+import { fetchPost, likePost, unlikePost } from '../../../store/Actions/PostActions';
+import { logOut } from '../../../store/Actions/UserActions';
 import CreatePost from './CreatePost';
 
 class Posts extends Component {

@@ -7,6 +7,17 @@
 body {
     background-color: #e9ebee;
 }
+/* Main screen loader  */
+.main-screen-loader-conatiner {
+    height: 100vh;
+    position: relative;
+}
+.main-screen-loader-conatiner .lds-ring {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* Main screen loader  */
 
 .sec-navbar {
     background-color: #4267b2;
@@ -703,6 +714,12 @@ body {
 .main .online-user .list-of-users .single-user:hover {
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
+}
+.main .online-user .list-of-users .loading-online-user-container {
+    position: relative;
+}
+.main .online-user .list-of-users .loading-online-user-container .lds-ring {
+    left: 40%;
 }
 .main .posts-container {
     margin-top: 10px;

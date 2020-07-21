@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import Sidebar from './Sidebar/Sidebar';
 import Posts from './Posts/Posts';
-import ListOfOnlineUsers from './ListOfOnlineUsers';
+import ListOfOnlineUsers from './ListOfOnlineUsers/ListOfOnlineUsers';
 import {OpenUploadProfilePicture} from '../../store/Actions/ModelActions';
 import { setPresenceOnline, setPresenceOffline } from '../../store/Actions/UserActions';
 
@@ -30,10 +30,10 @@ const Home = ({profileData: {
             <section className="main">
                 <div className="user-navbar-posts">
                     <Sidebar photoUrl={photoUrl}/>
-                    {/* <Posts photoUrl={photoUrl}/> */}
+                    <Posts photoUrl={photoUrl}/>
                 </div>
                 <div className="online-user">
-                    {/* <ListOfOnlineUsers/> */}
+                    <ListOfOnlineUsers/>
                 </div>
             </section>
         </Fragment>

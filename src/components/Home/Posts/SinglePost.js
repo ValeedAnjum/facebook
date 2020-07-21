@@ -68,14 +68,6 @@ const SinglePost = ({post, likePost, unlikePost}) => {
             </div>
             <div className="post-buttons">
                 <div className="button-container">
-                    <button className="like">
-                        100 Peoples like this
-                    </button>
-                    <button className="comment">100 Comment</button>
-                </div>
-            </div>
-            <div className="post-buttons">
-                <div className="button-container">
                     {(localIsLiked)
                         ? <Fragment>
                                 <button
