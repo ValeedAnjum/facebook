@@ -19,7 +19,7 @@ const Home = ({profileData: {
         }
     })
     if (!auth) {
-        return <Redirect to="/auth"/>
+        return <Redirect to="/login"/>
     }
     if(auth){
         setPresenceOnline();
@@ -30,7 +30,7 @@ const Home = ({profileData: {
             <section className="main">
                 <div className="user-navbar-posts">
                     <Sidebar photoUrl={photoUrl}/>
-                    {/* <Posts photoUrl={photoUrl}/> */}
+                    <Posts photoUrl={photoUrl}/>
                 </div>
                 <div className="online-user">
                     <ListOfOnlineUsers/>

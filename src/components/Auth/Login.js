@@ -15,7 +15,7 @@ const Login = ({logIn,handleSubmit}) => {
         logIn(val);
     }
     return (
-        <form className="login-form" onSubmit={handleSubmit(submitVal)}>
+        <form className="login-form" onSubmit={handleSubmit(submitVal)} >
             <div className="email">
                 <label htmlFor="email">Email or phone</label>
                 <Field name="email" component={TextInput}  type="email" />

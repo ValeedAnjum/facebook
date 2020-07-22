@@ -1,10 +1,11 @@
 import firebase from '../../config/config';
-import { getFirebase } from 'react-redux-firebase';
+
 export const register = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const {fname, lname, email, password} = cred;
+        dispatch({type:'REGISTRATION_START'});
         try {
             const userData = await firebase
                 .auth()
@@ -15,9 +16,10 @@ export const register = cred => {
                 .doc(userData.user.uid)
                 .set({fname, lname, email, photoUrl: ''});
             console.log('Account Created');
-
+            dispatch({type:'REGISTRATION_SUCCESS'});
         } catch (err) {
-            console.log(err.message);
+            dispatch({type:'REGISTRATION_ERROR',payload:err.message});
+            alert(err.message);
         }
     }
 }
@@ -26,11 +28,14 @@ export const logIn = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const {email, password} = cred;
+        dispatch({type:'LOGIN_START'});
         try {
             await firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password);
+            dispatch({type:'LOGIN_SUCCESS'});
         } catch (err) {
+            dispatch({type:'LOGIN_ERROR',payload:err.message});
             console.log(err.message);
         }
     }
@@ -52,17 +57,15 @@ export const logOut = () => {
                 state: 'offline',
                 last_changed: firebase.database.ServerValue.TIMESTAMP
             };
-            try {
-                await userStatusDatabaseRef.set(isOfflineForDatabase);
-            } catch (error) {
-                console.log(error.message);
-            }
+            dispatch({type:'LOGOUT_START'});
+            await userStatusDatabaseRef.set(isOfflineForDatabase);
             //set user status to offline
             await firebase
                 .auth()
                 .signOut();
-            console.log('Signout Successfully');
+            dispatch({type:'LOGOUT_SUCCESS'});
         } catch (err) {
+            dispatch({type:'LOGOUT_ERROR',payload:err.message});
             console.log(err.message);
         }
     }
@@ -76,14 +79,14 @@ export const uploadProfilePicture = file => {
             .auth()
             .currentUser
             .uid;
-        var storageRef = firebase
+        const storageRef = firebase
             .storage()
             .ref(`profile-picture/${id}`);
         // console.log('uploading');
         dispatch({type: 'UploadingStart'});
-        var uploadTask = storageRef.putString(file, 'data_url');
+        const uploadTask = storageRef.putString(file, 'data_url');
         uploadTask.on('state_changed', function (snapshot) {
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
         }, function (error) {
             // Handle unsuccessful uploads
@@ -172,17 +175,17 @@ export const getOnlineUser = () => {
         if (querySnap.docs.length === 0) {
             return querySnap;
         }
-        let onlineUsersIds = [];
+        const onlineUsersIds = [];
         for(let i = 0 ; i < querySnap.docs.length ; i++) {
             onlineUsersIds.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id});
         }
-        let onlineUsersWithCurrentUser = [];
+        const onlineUsersWithCurrentUser = [];
         for(let i = 0; i< onlineUsersIds.length;i++){
             let query = RefToUserData.doc(onlineUsersIds[i].id);
             let querySnap = await query.get();
             onlineUsersWithCurrentUser.push({...querySnap.data(),id:onlineUsersIds[i].id})
         }
-        let onlineUsers = onlineUsersWithCurrentUser.filter(user => {
+        const onlineUsers = onlineUsersWithCurrentUser.filter(user => {
             return user.id != userId;
         });
         dispatch({type:'FTECH_ONLINE_USERS_SUCCESS',payload:onlineUsers});

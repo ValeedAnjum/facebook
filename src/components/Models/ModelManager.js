@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import UploadProfilePicture from './UploadProfilePicture/UploadProfilePicture';
 import {uploadProfilePicture} from '../../store/Actions/UserActions';
+import MianScreenLoader from '../MainScreenLoader/MianScreenLoader';
 
 
 const ModelManager = ({ModelName, uploadProfilePicture, uploading}) => {
@@ -9,6 +10,8 @@ const ModelManager = ({ModelName, uploadProfilePicture, uploading}) => {
         case 'UploadProfilePicture':
             return <UploadProfilePicture uploading={uploading}
                 uploadProfilePicture={uploadProfilePicture}/>
+        case 'ASYNCHRONOUS_START_MODEL':
+            return <MianScreenLoader />
         default:
             return  null ;
     }

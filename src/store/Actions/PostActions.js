@@ -194,15 +194,15 @@ export const addPost = (file, userStory) => {
 }
 
 export const likePost = post => {
-    return async(dispatch, getState, {getFirebase, getFirestore}) => {
+    return async () => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
         const increment = firebase
             .firestore
             .FieldValue
             .increment(1);
-        // const decrement = firebase.firestore.FieldValue.increment(-1);
-        const {likes, id, userid} = post;
+        const userid = firebase.auth().currentUser.uid;
+        const { id } = post;
         await Ref
             .doc(id)
             .update({likes: increment})
@@ -215,14 +215,15 @@ export const likePost = post => {
 }
 
 export const unlikePost = post => {
-    return async(dispatch, getState, {getFirebase, getFirestore}) => {
+    return async() => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
         const increment = firebase
             .firestore
             .FieldValue
             .increment(-1);
-        const {likes, id, userid} = post;
+        const userid = firebase.auth().currentUser.uid;
+        const {likes, id } = post;
         console.log('Unlike Post');
         try {
             if (likes > 0) {
@@ -245,7 +246,7 @@ export const fetchPostComments =  postId => {
         const query = Ref.where('replyof','==','false');
         dispatch({type:'FETCH_POST_COMMENTS_START'});
         const querySnap = await query.get();
-        let comments = [];
+        const comments = [];
         for(let i = 0; i<querySnap.docs.length; i++){
             comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
@@ -262,7 +263,7 @@ export const fetchCommentReplies = (postId,commentId) => {
         const query = Ref.where('replyof','==',`${commentId}`);
         dispatch({type:'FETCH_POST_COMMENTS_REPLIES_START'})
         const querySnap = await query.get();
-        let comments = [];
+        const comments = [];
         for(let i = 0; i<querySnap.docs.length; i++){
             comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
         }
@@ -281,7 +282,7 @@ export const addComment = (postId,data) => {
             .increment(1);
         const { message, replyof } = data;
         const { photoUrl , fname, lname} = getState().firebase.profile;
-        let replyoff = replyof ?  replyof:'false';
+        const replyoff = replyof ?  replyof:'false';
         const id = firebase.auth().currentUser.uid;
         try {
             if(replyof){

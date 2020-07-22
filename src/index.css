@@ -10,7 +10,12 @@ body {
 /* Main screen loader  */
 .main-screen-loader-conatiner {
     height: 100vh;
-    position: relative;
+    position: fixed;
+    z-index: 9999;
+    background-color: white;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 .main-screen-loader-conatiner .lds-ring {
     top: 50%;
@@ -1271,4 +1276,36 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* quick fixing responsive issues */
+@media screen and (max-width: 768px) {
+    .login-navbar .logo-login-form {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        flex-direction: column;
+    }
+    .login-navbar .login-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .login-navbar .btn-container button {
+        margin-top: 5px;
+    }
+    .users-signup-form .content-conatiner {
+        width: 100%;
+    }
+    .users-signup-form .content-conatiner .column-1 {
+        display: none;
+    }
+    .users-signup-form .content-conatiner .column-2 {
+        width: 100%;
+    }
+    .users-signup-form .content-conatiner .column-2 .signup-form .first-and-sirname {
+        display: block;
+    }
+    .users-signup-form .content-conatiner .column-2 .signup-form .first-and-sirname input:nth-child(1){
+        margin-bottom: 10px;
+    }
 }

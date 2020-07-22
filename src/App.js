@@ -15,7 +15,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/auth" component={Auth} />
+        <Route path="/login" component={Auth} />
       </Switch>
     </BrowserRouter>
   );

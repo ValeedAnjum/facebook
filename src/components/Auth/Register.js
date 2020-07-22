@@ -17,10 +17,10 @@ const Register = (props) => {
             <form className="signup-form" onSubmit={props.handleSubmit(submitVal)}>
                 <div className="first-and-sirname">
                     <Field type="text" name="fname" component={TextInput}  placeholder="First Name" />
-                    <Field type="text" name="lname" component={TextInput}  placeholder="Surname" />
+                    <Field type="text" name="lname" component={TextInput}  placeholder="Last Name" />
                 </div>
                 <div className="mobile-number-or-email-address">
-                    <Field type="email" name="email" component={TextInput}  placeholder="Email address" />
+                    <Field type="email" name="email" component={TextInput}  placeholder="Email Address" />
                 </div>
                 <div className="new-password">
                     <Field type="password" name="password" component={TextInput}  placeholder="New Password"
