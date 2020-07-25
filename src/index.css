@@ -1228,11 +1228,13 @@ body {
 }
 
 .upload-pictures-profile .button-container button {
-    border: none;
-    width: 50%;
+    border: 2px solid transparent;
+    width: 100%;
     outline: none;
 }
-
+.upload-pictures-profile .button-container button:hover {
+    border: 2px dotted black;
+}
 .upload-pictures-profile .chose-random-picture {
     display: none;
 }

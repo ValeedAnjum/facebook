@@ -1,11 +1,11 @@
 import firebase from '../../config/config';
-
+import * as constants from '../Constants/Constants';
 export const register = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const {fname, lname, email, password} = cred;
-        dispatch({type:'REGISTRATION_START'});
+        dispatch({type:constants.REGISTRATION_START});
         try {
             const userData = await firebase
                 .auth()
@@ -16,9 +16,9 @@ export const register = cred => {
                 .doc(userData.user.uid)
                 .set({fname, lname, email, photoUrl: ''});
             console.log('Account Created');
-            dispatch({type:'REGISTRATION_SUCCESS'});
+            dispatch({type:constants.REGISTRATION_SUCCESS});
         } catch (err) {
-            dispatch({type:'REGISTRATION_ERROR',payload:err.message});
+            dispatch({type:constants.REGISTRATION_ERROR,payload:err.message});
             alert(err.message);
         }
     }
@@ -28,14 +28,14 @@ export const logIn = cred => {
     return async(dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const {email, password} = cred;
-        dispatch({type:'LOGIN_START'});
+        dispatch({type:constants.LOGIN_START});
         try {
             await firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password);
-            dispatch({type:'LOGIN_SUCCESS'});
+            dispatch({type:constants.LOGIN_SUCCESS});
         } catch (err) {
-            dispatch({type:'LOGIN_ERROR',payload:err.message});
+            dispatch({type:constants.LOGIN_ERROR,payload:err.message});
             console.log(err.message);
         }
     }
@@ -57,20 +57,19 @@ export const logOut = () => {
                 state: 'offline',
                 last_changed: firebase.database.ServerValue.TIMESTAMP
             };
-            dispatch({type:'LOGOUT_START'});
+            dispatch({type:constants.LOGOUT_START});
             await userStatusDatabaseRef.set(isOfflineForDatabase);
             //set user status to offline
             await firebase
                 .auth()
                 .signOut();
-            dispatch({type:'LOGOUT_SUCCESS'});
+            dispatch({type:constants.LOGOUT_SUCCESS});
         } catch (err) {
-            dispatch({type:'LOGOUT_ERROR',payload:err.message});
+            dispatch({type:constants.LOGOUT_ERROR,payload:err.message});
             console.log(err.message);
         }
     }
 }
-
 export const uploadProfilePicture = file => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
@@ -83,7 +82,7 @@ export const uploadProfilePicture = file => {
             .storage()
             .ref(`profile-picture/${id}`);
         // console.log('uploading');
-        dispatch({type: 'UploadingStart'});
+        dispatch({type: constants.UPLOADING_START});
         const uploadTask = storageRef.putString(file, 'data_url');
         uploadTask.on('state_changed', function (snapshot) {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -104,8 +103,8 @@ export const uploadProfilePicture = file => {
                         .update({photoUrl: downloadURL})
                         .then(res => {
                             console.log('Firestore profile data has been updated successfully');
-                            dispatch({type: 'UploadingEnd'});
-                            dispatch({type: 'CloseUploadProfilePicture'});
+                            dispatch({type: constants.UPLOADING_END});
+                            dispatch({type: constants.UPLOAD_PROFILE_PICTURE_MODEL_CLOSE});
                         })
                         .catch(err => {
                             console.log(err.message);
@@ -170,7 +169,7 @@ export const getOnlineUser = () => {
         const RefToStatus = firestore.collection('status').orderBy('last_changed','desc');
         const RefToUserData = firestore.collection('users');
         const query = RefToStatus.where('state','==','online');
-        dispatch({type:'FTECH_ONLINE_USERS_START'});
+        dispatch({type:constants.FTECH_ONLINE_USERS_START});
         const querySnap = await query.get();
         if (querySnap.docs.length === 0) {
             return querySnap;
@@ -188,6 +187,6 @@ export const getOnlineUser = () => {
         const onlineUsers = onlineUsersWithCurrentUser.filter(user => {
             return user.id != userId;
         });
-        dispatch({type:'FTECH_ONLINE_USERS_SUCCESS',payload:onlineUsers});
+        dispatch({type:constants.FTECH_ONLINE_USERS_SUCCESS,payload:onlineUsers});
     }
 }

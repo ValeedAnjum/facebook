@@ -7,7 +7,7 @@ import MianScreenLoader from '../MainScreenLoader/MianScreenLoader';
 
 const ModelManager = ({ModelName, uploadProfilePicture, uploading}) => {
     switch (ModelName) {
-        case 'UploadProfilePicture':
+        case 'UPLOAD_PROFILE_PICTURE_MODEL_OPEN':
             return <UploadProfilePicture uploading={uploading}
                 uploadProfilePicture={uploadProfilePicture}/>
         case 'ASYNCHRONOUS_START_MODEL':
@@ -23,7 +23,6 @@ const mapState = state => {
         uploading:state.User.uploading
     }
 }
-
 const mapDispatch = dispatch => {
     return {
         uploadProfilePicture: file => dispatch(uploadProfilePicture(file))

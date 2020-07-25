@@ -4,10 +4,10 @@ const intState = {
 
 export const ModelReducer = ( state = intState , action ) => {
     switch (action.type) {
-        case 'UploadProfilePicture':
-            return {...state,ModelName:'UploadProfilePicture'}
-        case 'CloseUploadProfilePicture':
-            return {...state,ModelName:'CloseUploadProfilePicture'}
+        case 'UPLOAD_PROFILE_PICTURE_MODEL_OPEN':
+            return {...state,ModelName:'UPLOAD_PROFILE_PICTURE_MODEL_OPEN'}
+        case 'UPLOAD_PROFILE_PICTURE_MODEL_CLOSE':
+            return {...state,ModelName:'UPLOAD_PROFILE_PICTURE_MODEL_CLOSE'}
         case 'LOGIN_START':
         case 'REGISTRATION_START':
         case 'LOGOUT_START':

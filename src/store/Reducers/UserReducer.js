@@ -7,11 +7,11 @@ const intState = {
 
 export const UserReducer = ( state = intState , action ) => {
     switch (action.type) {
-        case 'UploadingStart':
+        case 'UPLOADING_START':
             return {...state,uploading:true};
-        case 'UploadingEnd':
+        case 'UPLOADING_END':
             return {...state,uploading:false};
-        case 'UploadingProgress':
+        case 'UPLOADING_PROGRESS':
             return {...state,uploadingPercentage:action.payload}
         case 'FTECH_ONLINE_USERS_START':
             return {...state,onlineUsers:[]}

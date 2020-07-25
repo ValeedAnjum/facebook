@@ -44,7 +44,7 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
             <div className="upload-pictures-profile">
                 <div className="button-container">
                     <button onClick={selectPicture}>Select Picture</button>
-                    <button >Chose Random Picture</button>
+                    {/* <button >Chose Random Picture</button> */}
                 </div>
                 <div className="upload-picture">
                     <form method='POST' encType='multipart/form-data' onSubmit={e => {e.preventDefault()}} >

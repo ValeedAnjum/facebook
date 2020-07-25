@@ -1,9 +1,7 @@
-
-
 export const OpenUploadProfilePicture = () => dispatch => {
-    dispatch({type:'UploadProfilePicture'});
+    dispatch({type:'UPLOAD_PROFILE_PICTURE_MODEL_OPEN'});
 }
 
 export const CloseUploadProfilePicture = () => (dispatch,getState) => {
-    dispatch({type:'CloseUploadProfilePicture'});
+    dispatch({type:'UPLOAD_PROFILE_PICTURE_MODEL_CLOSE'});
 }

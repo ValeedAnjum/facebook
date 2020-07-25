@@ -46,6 +46,7 @@ export const fetchPost = lastPostId => {
             // console.log(getState().PostReducer.post);
             return querySnap;
         } catch (err) {
+            dispatch({type:'FETCH_POST_ERROR',payload:err.message});
             console.log(err);
         }
 
@@ -64,7 +65,7 @@ export const addPost = (file, userStory) => {
             .uid;
         const {fname, photoUrl} = getState().firebase.profile;
         console.log('addPost');
-        dispatch({type: 'UploadingStart'});
+        dispatch({type: 'UPLOADING_START'});
         if (!file && userStory) {
             const Ref = firestore.collection('Posts');
             if (userStory.length > 0) {
@@ -78,8 +79,8 @@ export const addPost = (file, userStory) => {
                     userid: id
                 }).then(() => {
                     console.log('Post Added Successfully');
-                    dispatch({type: 'UploadingEnd'});
-                    dispatch({type: 'UploadingProgress', payload: null});
+                    dispatch({type: 'UPLOADING_END'});
+                    dispatch({type: 'UPLOADING_PROGRESS', payload: null});
                 }).catch(err => {
                     console.log('err', err.message);
                 })
@@ -97,7 +98,7 @@ export const addPost = (file, userStory) => {
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
-            dispatch({type: 'UploadingProgress', payload: progress});
+            dispatch({type: 'UPLOADING_PROGRESS', payload: progress});
         }, function (error) {
             console.log(error);
         }, function () {
@@ -120,8 +121,8 @@ export const addPost = (file, userStory) => {
                             userid: id
                         }).then(() => {
                             console.log('Post Added Successfully');
-                            dispatch({type: 'UploadingEnd'});
-                            dispatch({type: 'UploadingProgress', payload: null});
+                            dispatch({type: 'UPLOADING_END'});
+                            dispatch({type: 'UPLOADING_PROGRESS', payload: null});
                         }).catch(err => {
                             console.log('err', err.message);
                         })
@@ -136,8 +137,7 @@ export const addPost = (file, userStory) => {
                             userstory: userStory,
                             userid: id
                         }).then(() => {
-                            console.log('Post Added Successfully');
-                            dispatch({type: 'UploadingEnd'});
+                            dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
                             console.log('err', err.message);
                         })
@@ -152,7 +152,7 @@ export const addPost = (file, userStory) => {
                             userid: id
                         }).then(() => {
                             console.log('Post Added Successfully');
-                            dispatch({type: 'UploadingEnd'});
+                            dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
                             console.log('err', err.message);
                         })
@@ -166,8 +166,7 @@ export const addPost = (file, userStory) => {
                             userimage: photoUrl,
                             userid: id
                         }).then(() => {
-                            console.log('Post Added Successfully');
-                            dispatch({type: 'UploadingEnd'});
+                            dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
                             console.log('err', err.message);
                         })
@@ -181,8 +180,7 @@ export const addPost = (file, userStory) => {
                             userstory: userStory,
                             userid: id
                         }).then(() => {
-                            console.log('Post Added Successfully');
-                            dispatch({type: 'UploadingEnd'});
+                            dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
                             console.log('err', err.message);
                         })
