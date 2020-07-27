@@ -43,24 +43,25 @@ exports.postCreated = functions
             time: admin
                 .firestore
                 .FieldValue
-                .serverTimestamp()
+                .serverTimestamp(),
+            photoUrl:post.userimage
         }
         return createNotification(postNotification);
     })
 
-exports.accountCreated = functions
-    .firestore
-    .document('users/{userId}')
-    .onCreate(doc => {
-        const user = doc.data();
-        const accountNotification = {
-            notificationname: 'account-created-notification',
-            name: `${user.fname} ${user.lname}`,
-            message: 'created a new account',
-            time: admin
-                .firestore
-                .FieldValue
-                .serverTimestamp()
-        }
-        return createNotification(accountNotification);
-    })
+// exports.accountCreated = functions
+//     .firestore
+//     .document('users/{userId}')
+//     .onCreate(doc => {
+//         const user = doc.data();
+//         const accountNotification = {
+//             notificationname: 'account-created-notification',
+//             name: `${user.fname} ${user.lname}`,
+//             message: 'created a new account',
+//             time: admin
+//                 .firestore
+//                 .FieldValue
+//                 .serverTimestamp()
+//         }
+//         return createNotification(accountNotification);
+//     })

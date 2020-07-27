@@ -1,4 +1,5 @@
 import React, {Fragment, useState} from 'react'
+import moment from 'moment';
 import CommentsReplies from './CommentsReplies';
 import CommentInput from './CommentInput';
 
@@ -13,7 +14,8 @@ const SingleComment = ({comment, postId, commentreply, addCommentLocally}) => {
         name,
         profileimage,
         replies,
-        id
+        id,
+        time
     } = comment;
     const showRepliesHandler = () => {
         setshowReplies(true);
@@ -31,12 +33,11 @@ const SingleComment = ({comment, postId, commentreply, addCommentLocally}) => {
                     <span>{message}</span>
                 </div>
                 <div className="like-reply-btn-and-time">
-                    <button>Like</button>
-                    {/* {!commentreply
-                        ? <button onClick={commentReplyHandler}>Reply</button>
-                        : null
-} */}
-                    <span>29m</span>
+                    <span>
+                        {
+                        time ? moment(time.toDate()).fromNow():moment(new Date()).fromNow()
+                        }
+                    </span>
                 </div>
                 {postReplies
                     ? <div className="post-comment">

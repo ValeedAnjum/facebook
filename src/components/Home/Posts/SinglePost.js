@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react'
+import moment from 'moment';
 import Comments from './Comments';
 import SinglePostOptions from './SinglePostOptions';
 
@@ -11,7 +12,8 @@ const SinglePost = ({post, likePost, unlikePost}) => {
         userstory,
         isLiked,
         id,
-        likes
+        likes,
+        time
     } = post;
     const [localIsLiked,
         setlocalIsLiked] = useState(isLiked);
@@ -38,8 +40,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                 <div className="name-and-time">
                     <span>{name}</span>
                     <span>
-                        5 hrs
-                        <i className="fas fa-globe-asia"></i>
+                        {moment(time.toDate()).fromNow()}
                     </span>
                 </div>
                 <div className="three-dots" onClick={() => setOptions(!options)}>

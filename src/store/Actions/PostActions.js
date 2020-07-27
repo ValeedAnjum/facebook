@@ -1,5 +1,5 @@
 import firebase from '../../config/config';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 export const fetchPost = lastPostId => {
     return async(dispatch, getState, {getFirebase}) => {
         const firestore = firebase.firestore();
@@ -8,7 +8,7 @@ export const fetchPost = lastPostId => {
             .auth()
             .currentUser
             .uid;
-        dispatch({type: 'FETCH_POST_START',payload:[]});
+        dispatch({type: 'FETCH_POST_START', payload: []});
         try {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
@@ -46,8 +46,9 @@ export const fetchPost = lastPostId => {
             // console.log(getState().PostReducer.post);
             return querySnap;
         } catch (err) {
-            dispatch({type:'FETCH_POST_ERROR',payload:err.message});
-            console.log(err);
+            dispatch({type: 'FETCH_POST_ERROR', payload: err.message});
+            //Will Create A Error Model Latter
+            alert(err.message);
         }
 
     }
@@ -64,7 +65,6 @@ export const addPost = (file, userStory) => {
             .currentUser
             .uid;
         const {fname, photoUrl} = getState().firebase.profile;
-        console.log('addPost');
         dispatch({type: 'UPLOADING_START'});
         if (!file && userStory) {
             const Ref = firestore.collection('Posts');
@@ -82,7 +82,8 @@ export const addPost = (file, userStory) => {
                     dispatch({type: 'UPLOADING_END'});
                     dispatch({type: 'UPLOADING_PROGRESS', payload: null});
                 }).catch(err => {
-                    console.log('err', err.message);
+                    //Will Create A Error Model Latter
+                    alert(err.message);
                 })
             }
             return;
@@ -124,7 +125,8 @@ export const addPost = (file, userStory) => {
                             dispatch({type: 'UPLOADING_END'});
                             dispatch({type: 'UPLOADING_PROGRESS', payload: null});
                         }).catch(err => {
-                            console.log('err', err.message);
+                            //Will Create A Error Model Latter
+                            alert(err.message);
                         })
                     } else if (userStory.length > 0 && !isImage) {
                         return Ref.add({
@@ -139,7 +141,8 @@ export const addPost = (file, userStory) => {
                         }).then(() => {
                             dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
-                            console.log('err', err.message);
+                            //Will Create A Error Model Latter
+                            alert(err.message);
                         })
                     } else if (isImage) {
                         return Ref.add({
@@ -154,7 +157,8 @@ export const addPost = (file, userStory) => {
                             console.log('Post Added Successfully');
                             dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
-                            console.log('err', err.message);
+                            //Will Create A Error Model Latter
+                            alert(err.message);
                         })
                     } else if (!isImage) {
                         return Ref.add({
@@ -168,7 +172,8 @@ export const addPost = (file, userStory) => {
                         }).then(() => {
                             dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
-                            console.log('err', err.message);
+                            //Will Create A Error Model Latter
+                            alert(err.message);
                         })
                     } else if (userStory.length > 0) {
                         return Ref.add({
@@ -182,7 +187,8 @@ export const addPost = (file, userStory) => {
                         }).then(() => {
                             dispatch({type: 'UPLOADING_END'});
                         }).catch(err => {
-                            console.log('err', err.message);
+                            //Will Create A Error Model Latter
+                            alert(err.message);
                         })
                     }
 
@@ -192,21 +198,25 @@ export const addPost = (file, userStory) => {
 }
 
 export const likePost = post => {
-    return async () => {
+    return async() => {
         const firestore = firebase.firestore();
         const Ref = firestore.collection('Posts');
         const increment = firebase
             .firestore
             .FieldValue
             .increment(1);
-        const userid = firebase.auth().currentUser.uid;
-        const { id } = post;
+        const userid = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const {id} = post;
         await Ref
             .doc(id)
             .update({likes: increment})
         await Ref
             .doc(id)
-            .collection('likes').doc(`${userid}_${id}`)
+            .collection('likes')
+            .doc(`${userid}_${id}`)
             .set({userid: userid, postid: id})
         console.log('liked post');
     }
@@ -220,88 +230,138 @@ export const unlikePost = post => {
             .firestore
             .FieldValue
             .increment(-1);
-        const userid = firebase.auth().currentUser.uid;
-        const {likes, id } = post;
+        const userid = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const {likes, id} = post;
         console.log('Unlike Post');
         try {
             if (likes > 0) {
                 await Ref
                     .doc(id)
                     .update({likes: increment})
-                await Ref.doc(id).collection('likes').doc(`${userid}_${id}`).delete();
+                await Ref
+                    .doc(id)
+                    .collection('likes')
+                    .doc(`${userid}_${id}`)
+                    .delete();
             }
             console.log('unliked post');
         } catch (err) {
-            console.log(err.message);
+            //Will Create A Error Model Latter
+            alert(err.message);
         }
     }
 }
 
-export const fetchPostComments =  postId => {
-    return async( dispatch , getState ) => {
+export const fetchPostComments = postId => {
+    return async(dispatch, getState) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc(postId).collection('comments').orderBy('time');
-        const query = Ref.where('replyof','==','false');
-        dispatch({type:'FETCH_POST_COMMENTS_START'});
-        const querySnap = await query.get();
-        const comments = [];
-        for(let i = 0; i<querySnap.docs.length; i++){
-            comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
+        const Ref = firestore
+            .collection('Posts')
+            .doc(postId)
+            .collection('comments')
+            .orderBy('time');
+        const query = Ref.where('replyof', '==', 'false');
+        dispatch({type: 'FETCH_POST_COMMENTS_START'});
+        try {
+            const querySnap = await query.get();
+            const comments = [];
+            for (let i = 0; i < querySnap.docs.length; i++) {
+                comments.push({
+                    ...querySnap
+                        .docs[i]
+                        .data(),
+                    id: querySnap.docs[i].id
+                })
+            }
+            dispatch({type: 'FETCH_POST_COMMENTS_SUCCESS', payload: comments});
+            return querySnap;
+        } catch (err) {
+            dispatch({type: 'FETCH_POST_COMMENTS_ERROR', payload: err.message});
+            //Will Create A Error Model Latter
+            alert(err.message);
         }
-        dispatch({type:'FETCH_POST_COMMENTS_SUCCESS',payload:comments});
-        return querySnap;
 
     }
 }
 
-export const fetchCommentReplies = (postId,commentId) => {
-    return async( dispatch , getState ) => {
+export const fetchCommentReplies = (postId, commentId) => {
+    return async(dispatch, getState) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc(postId).collection('comments').orderBy('time');
-        const query = Ref.where('replyof','==',`${commentId}`);
-        dispatch({type:'FETCH_POST_COMMENTS_REPLIES_START'})
-        const querySnap = await query.get();
-        const comments = [];
-        for(let i = 0; i<querySnap.docs.length; i++){
-            comments.push({...querySnap.docs[i].data(),id:querySnap.docs[i].id})
+        const Ref = firestore
+            .collection('Posts')
+            .doc(postId)
+            .collection('comments')
+            .orderBy('time');
+        const query = Ref.where('replyof', '==', `${commentId}`);
+        dispatch({type: 'FETCH_POST_COMMENTS_REPLIES_START'})
+        try {
+            const querySnap = await query.get();
+            const comments = [];
+            for (let i = 0; i < querySnap.docs.length; i++) {
+                comments.push({
+                    ...querySnap
+                        .docs[i]
+                        .data(),
+                    id: querySnap.docs[i].id
+                })
+            }
+            dispatch({type: 'FETCH_POST_COMMENTS_REPLIES_SUCCESS', payload: comments});
+            return querySnap;
+        } catch (err) {
+            dispatch({type: 'FETCH_POST_COMMENTS_REPLIES_ERROR', payload: err.message});
+            //Will Create A Error Model Latter
+            alert(err.message);
         }
-        dispatch({type:'FETCH_POST_COMMENTS_REPLIES_SUCCESS',payload:comments});
-        return querySnap;
     }
 }
 
-export const addComment = (postId,data) => {
-    return async( dispatch, getState ) => {
+export const addComment = (postId, data) => {
+    return async(dispatch, getState) => {
         const firestore = firebase.firestore();
-        const Ref = firestore.collection('Posts').doc(postId).collection('comments');
+        const Ref = firestore
+            .collection('Posts')
+            .doc(postId)
+            .collection('comments');
         const increment = firebase
             .firestore
             .FieldValue
             .increment(1);
-        const { message, replyof } = data;
-        const { photoUrl , fname, lname} = getState().firebase.profile;
-        const replyoff = replyof ?  replyof:'false';
-        const id = firebase.auth().currentUser.uid;
+        const {message, replyof} = data;
+        const {photoUrl, fname, lname} = getState().firebase.profile;
+        const replyoff = replyof
+            ? replyof
+            : 'false';
+        const id = firebase
+            .auth()
+            .currentUser
+            .uid;
         try {
-            if(replyof){
-                await firestore.collection('Posts').doc(postId).collection('comments').doc(replyoff).update({
-                    replies:increment
-                })
+            if (replyof) {
+                await firestore
+                    .collection('Posts')
+                    .doc(postId)
+                    .collection('comments')
+                    .doc(replyoff)
+                    .update({replies: increment})
             }
             const res = await Ref.add({
-                likes:[],
-                message:message,
-                name:`${fname} ${lname}`,
-                profileimage:photoUrl,
-                replies:0,
-                replyof:replyoff,
-                time:new Date()
+                likes: [],
+                message: message,
+                name: `${fname} ${lname}`,
+                profileimage: photoUrl,
+                replies: 0,
+                replyof: replyoff,
+                time: new Date()
             })
             return res.id;
         } catch (err) {
-            console.log(err.message);
+            //Will Create A Error Model Latter
+            alert(err.message);
         }
-        
+
     }
 }
 export const addPostDumyData = () => {

@@ -12,11 +12,11 @@ const NotificationList = ({notifications}) => {
                     <span>Mark All as Read</span>
                 </div>
                 {notifications && notifications.map(singleNotific => {
-                    const {id, name, message} = singleNotific;
+                    const {id, name, message, photoUrl} = singleNotific;
                     return (
                         <div className="single-notification" key={id}>
                             <div className="notifictaion-user-image">
-                                <img src="/style/images/user.jpg" alt="notification-user-img"/>
+                                <img src={photoUrl} alt="notification-user-img"/>
                             </div>
                             <div className="notification-text">
                                 <p>
