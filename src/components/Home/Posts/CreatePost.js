@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react'
+import React , { useState, useEffect, Fragment } from 'react'
 import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
 import { addPost } from '../../../store/Actions/PostActions';
@@ -6,6 +6,7 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
     const [image, setimage] = useState(null);
     const [video, setvideo] = useState(null);
     const [userStory, setuserStory] = useState("");
+    const [userStoryLength, setuserStoryLength] = useState(0);
     const imageClickHandler = () => {
         document.getElementById('user-post-image').click();
     }
@@ -63,7 +64,10 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
         }
     }
     const handleUserStory = event => {
-        setuserStory(event.target.value);
+        if(event.target.value.length <= 1000 ){
+            setuserStoryLength(event.target.value.length);
+            setuserStory(event.target.value);
+        }
     }
     useEffect(() => {
         if(!uploading){
@@ -83,6 +87,13 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
                     placeholder="What's on your mind, Valeed?"
                     value={userStory} onChange={handleUserStory}
                 />
+                {
+                    userStoryLength >= 500 ? <Fragment>
+                        <p className="text-length-info">
+                            {userStoryLength}/1000
+                        </p>
+                    </Fragment>:null
+                }
             </div>
             <div className="upload-content">
                 <div className="upload-picture">

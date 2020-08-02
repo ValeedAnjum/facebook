@@ -606,6 +606,7 @@ body {
     display: flex;
     padding: 10px;
     justify-content: flex-start;
+    position: relative;
 }
 .main .user-posts .create-post .user-image-and-content img {
     width: 70px;
@@ -617,6 +618,19 @@ body {
     width: 100%;
     border: none;
     outline: none;
+}
+.main .user-posts .create-post .user-image-and-content .text-length-info {
+    display: inline-table;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    margin-right: 5px;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 0 2px;
+    background-color: #4267b2;
+    color: #fff5eb;
 }
 .main .user-posts .create-post .upload-content {
     margin: 10px;

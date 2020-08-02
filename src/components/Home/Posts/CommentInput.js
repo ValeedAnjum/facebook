@@ -22,7 +22,9 @@ const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
         }
     }
     const valChangeHandler = event => {
-        setValue(event.target.value);
+        if(event.target.value.trim().length < 300){
+           setValue(event.target.value);
+        }
     }
     return (
         <div className="comment-content">

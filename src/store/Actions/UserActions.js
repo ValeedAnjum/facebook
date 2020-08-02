@@ -5,6 +5,10 @@ export const register = cred => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const {fname, lname, email, password} = cred;
+        if(fname.length > 15 || lname.length > 15){
+            alert('First Name and Last Name length must be 15 Characters or less');
+            return;
+        }
         dispatch({type: constants.REGISTRATION_START});
         try {
             const userData = await firebase
