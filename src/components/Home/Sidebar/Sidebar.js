@@ -6,7 +6,7 @@ const Sidebar = ({photoUrl}) => {
         <div className="user-navbar">
             <div className="user-itself">
                 {
-                    photoUrl ? <img src={photoUrl} alt="user-img"/>:<PictureLoadingPlaceholder />
+                    photoUrl ? <img src={photoUrl} alt="user-img"/>:<PictureLoadingPlaceholder/>
                 }
                 <p>Valeed Anjum</p>
             </div>

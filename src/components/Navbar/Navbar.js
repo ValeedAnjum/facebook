@@ -51,7 +51,7 @@ const Navbar = (props) => {
                                     : <PictureLoadingPlaceholder />
 }
                                 {
-                                    fname ? fname:<h6>Loading</h6>
+                                    fname ? <p style={{marginBottom:'0',marginLeft:'5px'}}>{fname}</p>:null
                                 }
                                 <div className="line"></div>
                             </div>

@@ -526,7 +526,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-right: 12px;
+    margin-right: 5px;
 }
 .main .user-navbar .user-itself p {
     margin: 0;
@@ -612,7 +612,6 @@ body {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    margin-right: 10px;
 }
 .main .user-posts .create-post .user-image-and-content input {
     width: 100%;

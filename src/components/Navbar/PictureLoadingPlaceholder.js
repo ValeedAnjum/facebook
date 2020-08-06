@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactPlaceholder from 'react-placeholder';
-const PictureLoadingPlaceholder = () => {
+const PictureLoadingPlaceholder = (props) => {
     return (
         <div className="navbar-user-picture-placeholder">
             <ReactPlaceholder
