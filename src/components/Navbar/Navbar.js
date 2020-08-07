@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import NotificationList from './NotificationList';
 import { logOut } from '../../store/Actions/UserActions';
-import PictureLoadingPlaceholder from './PictureLoadingPlaceholder';
+import ImageLoadingPlaceholder from '../ImageLoadingPlaceholder/ImageLoadingPlaceholder';
 
 const Navbar = (props) => {
     const {
@@ -48,7 +48,7 @@ const Navbar = (props) => {
                                             backgroundSize: 'cover',
                                             backgroundRepeat: 'no-repeat'
                                         }}></div>
-                                    : <PictureLoadingPlaceholder />
+                                    : <ImageLoadingPlaceholder style={{width:'27px',height:'27px'}} />
                                 }
                                 {
                                     fname ? <p style={{marginBottom:'0',marginLeft:'5px'}}>{fname}</p>:null

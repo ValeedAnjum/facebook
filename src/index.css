@@ -101,13 +101,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
-.navbar-user-picture-placeholder {
-    margin-right: 5px;
-}
-.navbar-user-picture-placeholder > div {
-    width: 27px !important;
-    height: 27px !important;
-}
+
 .sec-navbar .tab-container .ul .tab .line {
     position: absolute;
     width: 1px;

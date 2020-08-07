@@ -1,12 +1,13 @@
 import React from 'react'
-import PictureLoadingPlaceholder from '../../Navbar/PictureLoadingPlaceholder';
+import ImageLoadingPlaceholder from '../../ImageLoadingPlaceholder/ImageLoadingPlaceholder';
 
 const Sidebar = ({photoUrl}) => {
     return (
         <div className="user-navbar">
             <div className="user-itself">
                 {
-                    photoUrl ? <img src={photoUrl} alt="user-img"/>:<PictureLoadingPlaceholder/>
+                    photoUrl ? <img src={photoUrl} alt="user-img"/>:
+                    <ImageLoadingPlaceholder style={{width:'27px',height:'27px',marginRight:'5px'}} />
                 }
                 <p>Valeed Anjum</p>
             </div>

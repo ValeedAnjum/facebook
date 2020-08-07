@@ -2,7 +2,7 @@ import React , { useState, useEffect, Fragment, Suspense } from 'react'
 import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
 import { addPost } from '../../../store/Actions/PostActions';
-import PictureLoadingPlaceholder from '../../Navbar/PictureLoadingPlaceholder';
+import ImageLoadingPlaceholder from '../../ImageLoadingPlaceholder/ImageLoadingPlaceholder';
 const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
     const [image, setimage] = useState(null);
     const [video, setvideo] = useState(null);
@@ -84,7 +84,11 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
                     ? <div className="image-container">
                         <img src={photoUrl} alt="user-img"/>
                     </div>
-                    : <PictureLoadingPlaceholder />
+                    : 
+                    <ImageLoadingPlaceholder 
+                    style={{marginRight:'10px'}} 
+                    placeholderStyle={{width:'50px',height:'50px'}} 
+                    />
                 }
                 <textarea
                     placeholder="What's on your mind, Valeed?"
