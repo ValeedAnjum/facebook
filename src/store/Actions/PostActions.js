@@ -334,10 +334,6 @@ export const addComment = (postId, data) => {
         const replyoff = replyof
             ? replyof
             : 'false';
-        const id = firebase
-            .auth()
-            .currentUser
-            .uid;
         try {
             if (replyof) {
                 await firestore

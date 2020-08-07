@@ -34,7 +34,6 @@ const SinglePost = ({post, likePost, unlikePost}) => {
         <div className="post">
             <div className="user-data">
                 <div className="user-image">
-                    {/* <img src="style/images/user.jpg" alt="user-img"/> */}
                     <img src={userimage} alt="user-img"/>
                 </div>
                 <div className="name-and-time">
@@ -53,7 +52,6 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                 </div>
             </div>
             <div className="user-content">
-                {/* <img src="style/images/user.jpg" alt="post-img"/> */}
                 {userstory
                     ? userstory
                     : null

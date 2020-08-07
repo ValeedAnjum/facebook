@@ -6,8 +6,6 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import Navbar from './components/Navbar/Navbar';
 
-
-
 function App() {
   return (
     <BrowserRouter>

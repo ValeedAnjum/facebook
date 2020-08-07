@@ -14,7 +14,6 @@ export const register = cred => {
             const userData = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password);
-
             await firestore
                 .collection('users')
                 .doc(userData.user.uid)
@@ -23,7 +22,6 @@ export const register = cred => {
             dispatch({type: constants.REGISTRATION_SUCCESS});
         } catch (err) {
             dispatch({type: constants.REGISTRATION_ERROR, payload: err.message});
-            //Will Create A Error Model Latter
             alert(err.message);
         }
     }

@@ -11,7 +11,6 @@ const validate = combineValidators({
 const Login = ({logIn,handleSubmit}) => {
     
     const submitVal = val => {
-        // console.log(val);
         logIn(val);
     }
     return (
@@ -31,12 +30,6 @@ const Login = ({logIn,handleSubmit}) => {
     )
 }
 
-const mapState = state => {
-    // console.log(state);
-    return {
-
-    }
-}
 
 const mapDispatch = dispatch => {
     return {
@@ -44,4 +37,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState,mapDispatch)(reduxForm({form:'LoginForm',validate})((Login)));
+export default connect(null,mapDispatch)(reduxForm({form:'LoginForm',validate})((Login)));

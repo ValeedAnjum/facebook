@@ -32,7 +32,7 @@ export class Comments extends Component {
         this.setState({loadedComments: updatedComments})
     }
     render() {
-        const {fetchPostComments, postId, loadingComments} = this.props;
+        const { postId, loadingComments} = this.props;
         const { photoUrl } = this.props.profile;
         const {loadedComments} = this.state;
         return (

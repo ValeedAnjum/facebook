@@ -14,7 +14,6 @@ export const ModelReducer = ( state = intState , action ) => {
         case constants.LOGOUT_START:
             return {...state,ModelName:'ASYNCHRONOUS_START_MODEL'}
         case constants.LOGIN_SUCCESS:
-        case constants.REGISTRATION_SUCCESS:
         case constants.LOGOUT_SUCCESS:
             return {...state,ModelName:null}
         case constants.REGISTRATION_ERROR:

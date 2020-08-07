@@ -42,7 +42,6 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
 }
 
 const mapState = state => {
-    // console.log(state.firebase.profile);
     return {onlineUsers: state.User.onlineUsers,profile:state.firebase.profile}
 }
 

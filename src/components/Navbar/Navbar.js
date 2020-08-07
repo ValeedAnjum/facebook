@@ -16,8 +16,6 @@ const Navbar = (props) => {
     } = props;
     const [friendNotifictaion,
         setfriendNotifictaion] = useState(false);
-    const [messageNotifictaions,
-        setMessageNotifictaions] = useState(false);
     const [Notification,
         setNotificationList] = useState(false);
     if (!auth) {
@@ -59,7 +57,6 @@ const Navbar = (props) => {
                                 className="tab friend-requests"
                                 onClick={() => {
                                 setfriendNotifictaion(!friendNotifictaion);
-                                setMessageNotifictaions(false);
                                 setNotificationList(false)
                             }}>
                                 <i className="fas fa-user-friends"></i>
@@ -82,7 +79,6 @@ const Navbar = (props) => {
                                 className="tab notification"
                                 onClick={() => {
                                 setNotificationList(!Notification);
-                                setMessageNotifictaions(false);
                                 setfriendNotifictaion(false)
                             }}>
                                 <i className="fas fa-bell"></i>

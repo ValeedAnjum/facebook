@@ -13,6 +13,7 @@ const Home = ({profileData: {
     useEffect(() => {
         if (photoUrl === "") {
             OpenUploadProfilePicture();
+            console.log('con');
         }
         window.onbeforeunload = function() {
             setPresenceOffline();
@@ -33,7 +34,7 @@ const Home = ({profileData: {
                     <Posts photoUrl={photoUrl}/>
                 </div>
                 <div className="online-user">
-                    {/* <ListOfOnlineUsers/> */}
+                    <ListOfOnlineUsers/>
                 </div>
             </section>
         </Fragment>

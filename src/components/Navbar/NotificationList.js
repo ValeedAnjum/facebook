@@ -48,7 +48,6 @@ const NotificationList = ({notifications}) => {
 }
 
 const mapState = state => {
-    // console.log(state.firestore.ordered.notification);
     return {notifications: state.firestore.ordered.notification}
 }
 

@@ -40,7 +40,6 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
         }
     }
     const videoChnageHandler = event => {
-        // console.log(event.target.files[0]);
         const file = event.target.files[0];
         const { size } = file;
         const sizeInMb = Math.round(Number(size/1024/1024));

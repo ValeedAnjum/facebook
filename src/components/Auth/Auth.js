@@ -38,7 +38,6 @@ const Auth = ({auth}) => {
 }
 
 const mapState = state => {
-    // console.log(state);
     return {
         auth:state.firebase.auth.uid
     }
