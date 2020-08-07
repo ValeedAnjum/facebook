@@ -49,7 +49,7 @@ const Navbar = (props) => {
                                             backgroundRepeat: 'no-repeat'
                                         }}></div>
                                     : <PictureLoadingPlaceholder />
-}
+                                }
                                 {
                                     fname ? <p style={{marginBottom:'0',marginLeft:'5px'}}>{fname}</p>:null
                                 }
