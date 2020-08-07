@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 
-const SinglePostOptions = () => {
+const SinglePostOptions = ({name}) => {
     return (
         <Fragment>
             <div className="options-container">
@@ -38,7 +38,7 @@ const SinglePostOptions = () => {
                         <i className="fas fa-sync-alt"></i>
                     </div>
                     <div className="option-name-and-description">
-                        <div className="name">Snooze Fabiha for 30 days</div>
+                        <div className="name">Snooze {name} for 30 days</div>
                         <div className="description">temporarily stop seeing posts</div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const SinglePostOptions = () => {
                         <i className="fas fa-sync-alt"></i>
                     </div>
                     <div className="option-name-and-description">
-                        <div className="name">Unfollow Fabiha</div>
+                        <div className="name">Unfollow {name}</div>
                         <div className="description">Stop seeing posts but stay friends</div>
                     </div>
                 </div>

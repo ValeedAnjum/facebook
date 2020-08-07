@@ -48,7 +48,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
                     <div className="dot-2"></div>
                     <div className="dot-3"></div>
                     {
-                        options ? <SinglePostOptions />:null
+                        options ? <SinglePostOptions name={name} />:null
                     }
                 </div>
             </div>
