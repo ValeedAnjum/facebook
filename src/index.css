@@ -602,15 +602,6 @@ body {
     justify-content: flex-start;
     position: relative;
 }
-.main .user-posts .create-post .user-image-and-content .navbar-user-picture-placeholder {
-    margin-right: 10px;
-}
-.main .user-posts .create-post .user-image-and-content .navbar-user-picture-placeholder > div {
-    background-color: rgb(224, 224, 224);
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 50%;
-}
 .main .user-posts .create-post .user-image-and-content .image-container {
     width: 60px;
     height: 50px;

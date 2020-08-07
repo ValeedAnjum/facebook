@@ -44,10 +44,10 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
         const file = event.target.files[0];
         const { size } = file;
         const sizeInMb = Math.round(Number(size/1024/1024));
-        // if(sizeInMb > 20){
-        //     alert('video size should not be grater then 20 MB');
-        //     return;
-        // }
+        if(sizeInMb > 20){
+            alert('video size should not be grater then 20 MB');
+            return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(){
