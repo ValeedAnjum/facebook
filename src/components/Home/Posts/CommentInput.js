@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { addComment } from '../../../store/Actions/PostActions';
 const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
@@ -38,6 +39,13 @@ const CommentInput = ({postId, addComment, replyof, addCommentLocally}) => {
             <i className="far fa-surprise"></i>
         </div>
     )
+}
+
+CommentInput.propTypes = {
+    postId:PropTypes.string, 
+    addComment:PropTypes.func, 
+    replyof:PropTypes.string, 
+    addCommentLocally:PropTypes.func,
 }
 
 const mapDispatch = dispatch => {

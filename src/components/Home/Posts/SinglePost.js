@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react'
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import Comments from './Comments';
 import SinglePostOptions from './SinglePostOptions';
@@ -96,6 +97,12 @@ const SinglePost = ({post, likePost, unlikePost}) => {
             }
         </div>
     )
+}
+
+SinglePost.propTypes = {
+    post:PropTypes.array, 
+    likePost:PropTypes.func, 
+    unlikePost:PropTypes.func
 }
 
 export default SinglePost

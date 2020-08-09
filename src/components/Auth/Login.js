@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {combineValidators,isRequired} from 'revalidate';
 import {reduxForm,Field} from 'redux-form';
@@ -30,7 +31,10 @@ const Login = ({logIn,handleSubmit}) => {
     )
 }
 
-
+Login.propTypes = {
+    logIn:PropTypes.func.isRequired,
+    handleSubmit:PropTypes.func.isRequired
+}
 const mapDispatch = dispatch => {
     return {
         logIn:cred => dispatch(logIn(cred))

@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-// import {combineValidators, isRequired} from 'revalidate';
 import {reduxForm, Field} from 'redux-form';
 import TextInput from '../Form/TextInput';
 import { register } from '../../store/Actions/UserActions';
@@ -33,6 +33,11 @@ const Register = (props) => {
             </form>
         </Fragment>
     )
+}
+
+Register.propTypes = {
+    register:PropTypes.func.isRequired,
+    handleSubmit:PropTypes.func.isRequired
 }
 
 const mapState = state => {

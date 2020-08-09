@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import SingleComment from './SingleComment';
 import {fetchPostComments} from '../../../store/Actions/PostActions';
@@ -57,6 +58,13 @@ export class Comments extends Component {
             </div>
         )
     }
+}
+
+Comments.propTypes = {
+    comments:PropTypes.array,
+    profile:PropTypes.object,
+    loadingComments:PropTypes.bool,
+    fetchPostComments:PropTypes.func
 }
 
 const mapState = state => {

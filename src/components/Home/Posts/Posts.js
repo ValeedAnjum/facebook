@@ -1,4 +1,5 @@
 import React, {Fragment, Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import SinglePost from './SinglePost';
@@ -72,6 +73,13 @@ class Posts extends Component {
             </div>
         );
     }
+}
+
+Posts.propTypes = {
+    post:PropTypes.array,
+    fetchPost:PropTypes.func,
+    likePost:PropTypes.func,
+    unlikePost:PropTypes.func
 }
 
 const mapState = state => {

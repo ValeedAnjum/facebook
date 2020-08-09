@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import ImageLoadingPlaceholder from '../../ImageLoadingPlaceholder/ImageLoadingPlaceholder';
 
 const Sidebar = ({photoUrl}) => {
@@ -51,6 +52,9 @@ const Sidebar = ({photoUrl}) => {
             </div>
         </div>
     )
+}
+Sidebar.propTypes = {
+    photoUrl:PropTypes.string
 }
 
 export default Sidebar;

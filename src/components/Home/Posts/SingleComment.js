@@ -1,11 +1,11 @@
 import React, {Fragment, useState} from 'react'
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import CommentsReplies from './CommentsReplies';
 
-const SingleComment = ({comment, postId, commentreply, addCommentLocally}) => {
+const SingleComment = ({comment, postId}) => {
     const [showReplies,
         setshowReplies] = useState(false);
-    
     const {
         likes,
         message,
@@ -54,6 +54,11 @@ const SingleComment = ({comment, postId, commentreply, addCommentLocally}) => {
 }
         </div>
     )
+}
+
+SingleComment.propTypes = {
+    comment:PropTypes.array, 
+    postId:PropTypes.string
 }
 
 export default SingleComment

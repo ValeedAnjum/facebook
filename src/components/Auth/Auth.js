@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import Login from './Login'
 import Register from './Register'
@@ -35,6 +36,10 @@ const Auth = ({auth}) => {
             </section>
         </Fragment>
     )
+}
+
+Auth.propTypes = {
+    auth:PropTypes.string
 }
 
 const mapState = state => {

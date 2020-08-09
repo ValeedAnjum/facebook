@@ -1,4 +1,5 @@
-import React , { useState, useEffect, Fragment, Suspense } from 'react'
+import React , { useState, useEffect, Fragment } from 'react'
+import PropTypes from 'prop-types';
 import Resizer from 'react-image-file-resizer';
 import { connect } from 'react-redux';
 import { addPost } from '../../../store/Actions/PostActions';
@@ -130,6 +131,14 @@ const CreatePost = ({ photoUrl, addPost, uploading, uploadingPercentage }) => {
             </div>
         </div>
     )
+}
+
+CreatePost.propTypes = {
+    uploading:PropTypes.bool,
+    uploadingPercentage:PropTypes.number,
+    addPost:PropTypes.func,
+    photoUrl:PropTypes.string,
+    addPost:PropTypes.func
 }
 
 const mapState = state => {

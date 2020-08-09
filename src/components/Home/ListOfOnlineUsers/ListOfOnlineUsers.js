@@ -1,4 +1,5 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getOnlineUser} from '../../../store/Actions/UserActions';
 import LoadingOnlineUsers from './LoadingOnlineUsers';
@@ -39,6 +40,12 @@ const ListOfOnlineUsers = ({getOnlineUser, onlineUsers, profile:{photoUrl,fname}
             }
         </div>
     )
+}
+
+ListOfOnlineUsers.propTypes = {
+    onlineUsers:PropTypes.array,
+    profile:PropTypes.object,
+    getOnlineUser:PropTypes.func.isRequired
 }
 
 const mapState = state => {

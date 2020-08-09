@@ -13,8 +13,8 @@ export const fetchPost = lastPostId => {
             const lastItem = lastPostId && (await firestore.collection('Posts').doc(lastPostId).get());
             let query;
             lastItem
-                ? (query = Ref.orderBy('time', 'desc').startAfter(lastItem).limit(1))
-                : (query = Ref.orderBy('time', 'desc').limit(1));
+                ? (query = Ref.orderBy('time', 'desc').startAfter(lastItem).limit(3))
+                : (query = Ref.orderBy('time', 'desc').limit(3));
             let querySnap = await query.get();
             if (querySnap.docs.length === 0) {
                 return querySnap;

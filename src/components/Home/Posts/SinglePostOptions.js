@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-
+import PropTypes from 'prop-types';
 const SinglePostOptions = ({name}) => {
     return (
         <Fragment>
@@ -63,6 +63,10 @@ const SinglePostOptions = ({name}) => {
             </div>
         </Fragment>
     )
+}
+
+SinglePostOptions.propTypes = {
+    name:PropTypes.string
 }
 
 export default SinglePostOptions;

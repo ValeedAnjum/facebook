@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
+import PropTypes from 'prop-types';
 import SingleComment from './SingleComment';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -19,6 +20,13 @@ const CommentsReplies = (props) => {
             }
         </Fragment>
     )
+}
+
+CommentsReplies.propTypes = {
+    comments:PropTypes.array,
+    fetchCommentReplies:PropTypes.func,
+    commentId:PropTypes.string, 
+    postId:PropTypes.string
 }
 
 const mapState = state => {
