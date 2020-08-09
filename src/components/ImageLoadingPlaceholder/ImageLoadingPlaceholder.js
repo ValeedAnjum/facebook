@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import ReactPlaceholder from 'react-placeholder';
 const ImageLoadingPlaceholder = ({style,placeholderStyle}) => {
     return (
@@ -12,6 +13,11 @@ const ImageLoadingPlaceholder = ({style,placeholderStyle}) => {
                 ></ReactPlaceholder>
         </div>
     )
+}
+
+ImageLoadingPlaceholder.propTypes = {
+    style:PropTypes.object,
+    placeholderStyle:PropTypes.object
 }
 
 export default ImageLoadingPlaceholder;

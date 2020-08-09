@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import UploadProfilePicture from './UploadProfilePicture/UploadProfilePicture';
 import {uploadProfilePicture} from '../../store/Actions/UserActions';
@@ -15,6 +16,12 @@ const ModelManager = ({ModelName, uploadProfilePicture, uploading}) => {
         default:
             return  null ;
     }
+}
+
+ModelManager.propTypes = {
+    ModelName:PropTypes.string,
+    uploading:PropTypes.bool,
+    uploadProfilePicture:PropTypes.func
 }
 
 const mapState = state => {

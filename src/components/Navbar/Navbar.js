@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import FriendListNotifictaion from './FriendListNotifictaion'
 import NotificationList from './NotificationList';
@@ -109,6 +110,12 @@ const Navbar = (props) => {
             </nav>
         </section>
     )
+}
+
+Navbar.propTypes = {
+    auth:PropTypes.string,
+    profileData:PropTypes.object,
+    logOut:PropTypes.func
 }
 
 export const mapState = state => {

@@ -100,7 +100,7 @@ const SinglePost = ({post, likePost, unlikePost}) => {
 }
 
 SinglePost.propTypes = {
-    post:PropTypes.array, 
+    post:PropTypes.object, 
     likePost:PropTypes.func, 
     unlikePost:PropTypes.func
 }

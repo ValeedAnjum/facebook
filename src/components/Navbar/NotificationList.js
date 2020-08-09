@@ -1,4 +1,5 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
@@ -47,6 +48,9 @@ const NotificationList = ({notifications}) => {
     )
 }
 
+NotificationList.propTypes = {
+    notification:PropTypes.array
+}
 const mapState = state => {
     return {notifications: state.firestore.ordered.notification}
 }

@@ -1,4 +1,5 @@
 import React , { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Resizer from 'react-image-file-resizer';
 import ModelOverlay from '../ModelOverlay';
 
@@ -58,4 +59,8 @@ const UploadProfilePicture = ({uploadProfilePicture , uploading}) => {
     )
 }
 
+UploadProfilePicture.propTypes = {
+    uploadProfilePicture:PropTypes.func , 
+    uploading:PropTypes.bool
+}
 export default UploadProfilePicture;
