@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ModelOverlay = () => {
-    return (
-        <div className="ModelOverlay"></div>
-    )
-}
+  return <div className="ModelOverlay"></div>;
+};
 
 export default ModelOverlay;

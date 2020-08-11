@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const LoadingCommentsPlaceholder = () => {
-    return (
-        <div className="loading-comments-placeholder">
-            <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="loading-comments-placeholder">
+      <div className="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
+};
 
-export default LoadingCommentsPlaceholder
+export default LoadingCommentsPlaceholder;
