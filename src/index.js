@@ -5,7 +5,7 @@ import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import config from "./config/config";
+import config from "./Configs/config";
 import "react-placeholder/lib/reactPlaceholder.css";
 import "./index.css";
 import App from "./App";
