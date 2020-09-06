@@ -6,7 +6,7 @@
 
 ## Preview
 
-[![Facebook Preview](https://raw.githubusercontent.com/ValeedAnjum/yourportfolio/master/public/img/yourportfolio.png)](https://facebook-842b3.firebaseapp.com/)
+[![Facebook Preview](https://github.com/ValeedAnjum/facebook/blob/master/public/style/images/facebook.gif)](https://facebook-842b3.firebaseapp.com/)
 **[View Live Preview](https://facebook-842b3.firebaseapp.com/)**
 
 ## Status
